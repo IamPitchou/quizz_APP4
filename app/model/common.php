@@ -1,5 +1,5 @@
 <?php
-	function IsValidAtt ($var)
+	function checkVar ($var)
 	{
 		if (isset($var) && !empty($var))
 			return true;
