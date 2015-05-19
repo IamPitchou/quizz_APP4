@@ -1,7 +1,7 @@
 <?php 
 include_once("pdo.php");
 include_once("common.php");
-class  coq_user_Model extends Model  
+class  coq_user
 {
 	private $id;
 	private $login;
@@ -110,12 +110,17 @@ class  coq_user_Model extends Model
 		return $this->pdo->request($rqt, $error);
 	}
 
-	public function find($PARAM)
+	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_user WHERE id = ".$id;
 		$data = $this->pdo->request($rqt, $error);
 		if ($data.count > 0) return $data[0];
 		else return 0;
+	}
+
+	public function JSON ()
+	{
+		return json_encode(array("id" => $this->id, "login" => $this->login, "password" => $this->pwd, "pseudo" => $this->pseudo, "rights" => $this->rights));
 	}
 }
 ?>

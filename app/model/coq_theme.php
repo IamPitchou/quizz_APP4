@@ -1,7 +1,7 @@
 <?php 
 include_once("pdo.php");
 include_once("common.php");
-class  coq_theme_Model extends Model  
+class coq_theme
 {
 	private $id;
 	private $val;
@@ -74,6 +74,10 @@ class  coq_theme_Model extends Model
 		$data = $this->pdo->request($rqt, $error);
 		if ($data.count > 0) return $data[0];
 		else return 0;
+	}
+	public function JSON ()
+	{
+		return json_encode(array("id" => $this->id, "value" => $this->val));
 	}
 }
 ?>

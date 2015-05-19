@@ -1,7 +1,7 @@
 <?php 
 include_once("pdo.php");
 include_once("common.php");
-class  coq_question_Model  
+class  coq_question
 {
 	private $id;
 	private $theme_id;
@@ -156,6 +156,12 @@ class  coq_question_Model
 		$data = $this->pdo->request($rqt, $error);
 		if ($data.count > 0) return $data[0];
 		else return 0;
+	}
+	public function JSON ()
+	{
+		return json_encode(array("id" => $this->id, "theme_id" => $this->theme_id, "val" => $this->val, 
+								 "answer1" => $this->answer1, "answer2" => $this->answer2, "answer3" => $this->answer3, 
+								 "answerOK" => $this->answerok));
 	}
 }
 ?>

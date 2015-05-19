@@ -1,7 +1,7 @@
 <?php 
 include_once("pdo.php");
 include_once("common.php");
-class  coq_config_Model extends Model  
+class  coq_config 
 {
 	private $key_2;
 	private $val;
@@ -80,6 +80,10 @@ class  coq_config_Model extends Model
 		$data = $this->pdo->request($rqt, $error);
 		if ($data.count >= 0) return $data[0];
 		else return 0;
+	}
+	public function JSON ()
+	{
+		return json_encode(array("key" => $this->key_2, "value" => $this->val));
 	}
 }
 ?>
