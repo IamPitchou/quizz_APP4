@@ -1,7 +1,7 @@
 <?php 
 include_once("pdo.php");
 include_once("common.php");
-class  coq_round_Model extends Model  
+class  coq_round 
 {
 	private $id;
 	private $chosen_theme1_id;
@@ -180,6 +180,14 @@ class  coq_round_Model extends Model
 		$data = $this->pdo->request($rqt, $error);
 		if ($data.count > 0) return $data[0];
 		else return 0;
+	}
+
+	public function JSON ()
+	{
+		return json_encode(array("id" => $this->id, "chosen_theme1_id" => $this->chosen_theme1_id, 
+								"chosen_theme2_id" => $this->chosen_theme2_id, "collection_id" => $this->collection_id, 
+								"selected_theme_id" => $this->selected_theme_id, "score1" => $this->score1,
+								"score2" => $this->score2, "end1" => $this->end1, "end2" => $this->end2));
 	}
 }
 ?>

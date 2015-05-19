@@ -1,7 +1,7 @@
 <?php 
 include_once("pdo.php");
 include_once("common.php");
-class  coq_duel_Model extends Model  
+class  coq_duel
 {
 	private $user1_id;
 	private $user2_id;
@@ -128,8 +128,13 @@ class  coq_duel_Model extends Model
 	{
 		$rqt = "SELECT * FROM coq_duel WHERE id = ".$id;
 		$data = $this->pdo->request($rqt, $error);
-		if ($data.count >= 0) return $data[0];
+		if ($data.count > 0) return $data[0];
 		else return 0;
+	}
+	public function JSON ()
+	{
+		return json_encode(array("user1_id" => $this->user1_id, "user2_id" => $this->user2_id, 
+								 "current_round_id" => $this->current_round_id, "current_round_number" => $this->current_round_number));
 	}
 }
 ?>

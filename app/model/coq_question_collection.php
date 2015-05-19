@@ -1,7 +1,7 @@
 <?php 
 include_once("pdo.php");
 include_once("common.php");
-class  coq_question_collection_Model extends Model  
+class  coq_question_collection
 {
 	private $id;
 	private $question_id;
@@ -77,9 +77,9 @@ class  coq_question_collection_Model extends Model
 		$this->pdo->request($rqt, $error);
 	}
 
-	public function get_questions_by_collection_id ($id)
+	public function get_questions_by_collection_id ($collection_id)
 	{
-		$rqt = "SELECT * FROM coq_question_collection WHERE collection_id = ".$id;
+		$rqt = "SELECT * FROM coq_question_collection WHERE collection_id = ".$collection_id;
 		return $this->pdo->request($rqt, $error);;
 	}
 
@@ -89,6 +89,10 @@ class  coq_question_collection_Model extends Model
 		$data = $this->pdo->request($rqt, $error);
 		if ($data.count > 0) return $data[0];
 		else return 0;
+	}
+	public function JSON ()
+	{
+		return json_encode(array("id" => $this->id, "question_id" => $this->question_id, "collection_id" => $this->collection_id));
 	}
 }
 ?>

@@ -1,7 +1,7 @@
 <?php 
 include_once("pdo.php");
 include_once("common.php");
-class  coq_collection_Model  
+class  coq_collection
 {
 	private $id;
 	private $title;
@@ -90,6 +90,10 @@ class  coq_collection_Model
 		$data = $this->pdo->request($rqt, $error);
 		if ($data.count > 0) return $data[0];
 		else return 0;
+	}
+	public function JSON ()
+	{
+		return json_encode(array("id" => $this->$id, "title" => $this->title, "difficulty" => $this->difficulty));
 	}
 }
 ?>
