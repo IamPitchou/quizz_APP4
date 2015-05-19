@@ -1,4 +1,6 @@
 <?php 
+include_once("pdo.php");
+include_once("common.php");
 class  coq_config_Model extends Model  
 {
 	private $key_2;
@@ -15,30 +17,24 @@ class  coq_config_Model extends Model
 	
 	// Les accesseurs
 	public function get_key_2()
-	{	if ( $this->IsValidAtt('key_2')) return $this->key_2; }
+	{	
+		return $this->key_2; 
+	}
 
 	public function get_val()
-	{	if ( $this->IsValidAtt('val')) return $this->val; }
+	{	
+		return $this->val; 
+	}
 
 	// Les mutateurs
 	public function set_key_2($value)
 	{
-		if(!empty($value))
-			$this->key_2 = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'key_2' ;
-		}
+		$this->key_2 = $value;
 	}
 
 	public function set_val($value)
 	{
-		if(!empty($value))
-			$this->val = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'val' ;
-		}
+		$this->val = $value;
 	}
 
 	public function add()
@@ -66,6 +62,11 @@ class  coq_config_Model extends Model
 		WHERE id ='.$id;
 		$this->pdo->request($rqt, $error);
 	}
+	public function list_()
+	{
+		$rqt = "SELECT * FROM coq_config";
+		return $this->pdo->request($rqt, $error);
+	}
 
 	public function delete($id)
 	{
@@ -77,7 +78,8 @@ class  coq_config_Model extends Model
 	{
 		$rqt = "SELECT * FROM coq_config WHERE key_2 = ".$key;
 		$data = $this->pdo->request($rqt, $error);
-		return $data[0];
+		if ($data.count >= 0) return $data[0];
+		else return 0;
 	}
 }
 ?>

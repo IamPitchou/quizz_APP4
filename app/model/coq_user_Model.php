@@ -1,70 +1,75 @@
 <?php 
+include_once("pdo.php");
+include_once("common.php");
 class  coq_user_Model extends Model  
 {
 	private $id;
 	private $login;
 	private $pwd;
+	private $pseudo;
 	private $rights;
+	private $pdo;
 
-	public function coq_user($login,$pwd,$rights){ 
-		$this->login=$login;
-		$this->pwd=$pwd;
-		$this->rights=$rights;
+	public function coq_user($login, $pwd, $pseudo, $rights)
+	{ 
+		$this->login = $login;
+		$this->pwd = $pwd;
+		$this->pseudo = $pseudo;
+		$this->rights = $rights;
+		$this->pdo = initPDOObject();
 	} 
 
 	
 	// Les accesseurs
 	public function get_id()
-	{	if ( $this->IsValidAtt('id')) return $this->id; }
+	{	 
+		return $this->id;
+	}
 
 	public function get_login()
-	{	if ( $this->IsValidAtt('login')) return $this->login; }
+	{	
+		return $this->login; 
+	}
 
 	public function get_pwd()
-	{	if ( $this->IsValidAtt('pwd')) return $this->pwd; }
+	{	
+		return $this->pwd; 
+	}
+
+	public function get_pseudo()
+	{	
+		return $this->pseudo; 
+	}
 
 	public function get_rights()
-	{	if ( $this->IsValidAtt('rights')) return $this->rights; }
+	{	
+		return $this->rights; 
+	}
 
 	// Les mutateurs
 	public function set_id($value)
 	{
-		if(!empty($value))
-			$this->id = $value;
-		else {
-			global $ErrorAttribut[];
-			$ErrorAttribut[] = 'id' ;
-		}
+		$this->id = $value;
 	}
 
 	public function set_login($value)
 	{
-		if(!empty($value))
-			$this->login = $value;
-		else {
-			global $ErrorAttribut[];
-			$ErrorAttribut[] = 'login' ;
-		}
+		$this->login = $value;
 	}
 
 	public function set_pwd($value)
 	{
-		if(!empty($value))
-			$this->pwd = $value;
-		else {
-			global $ErrorAttribut[];
-			$ErrorAttribut[] = 'pwd' ;
-		}
+		$this->pwd = $value;
+	}
+
+	public function set_pseudo($value)
+	{
+		$this->pseudo = $value;
 	}
 
 	public function set_rights($value)
 	{
-		if(!empty($value))
-			$this->rights = $value;
-		else {
-			global $ErrorAttribut[];
-			$ErrorAttribut[] = 'rights' ;
-		}
+		$this->rights = $value;
 	}
 
 	public function add()
@@ -84,7 +89,7 @@ class  coq_user_Model extends Model
 			"'.$this->pwd.'",
 			"'.$this->rights.'"
 		)';
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
+		$this->pdo->request($rqt, $error);
 	}
 
 	public function update($id)
@@ -96,45 +101,21 @@ class  coq_user_Model extends Model
 			pwd = "'.$this->pwd.'",
 			rights = "'.$this->rights.'"
 		WHERE id ='.$id;
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
+		$this->pdo->request($rqt, $error);
 	}
 
-	public function delete($id)
+	public function list_()
 	{
-		$rqt = 'DELETE FROM coq_user WHERE ID = '.$id;
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
-	}
-
-	public function list()
-	{
-		$tab = array();
-		$rqt = mysql_query("SELECT * FROM coq_user");
-		while($data = mysql_fetch_assoc($rqt))
-			$tab[] = $data;
-		return $tab;
-	}
-
-	public function list_p($PARAM)
-	{
-		$tab = array();
-		$rqt = mysql_query("SELECT * FROM coq_user WHERE PARAM = ".$PARAM);
-		$data = mysql_fetch_assoc($rqt);
-			$tab[] = $data;
-		return $tab;
+		$rqt = "SELECT * FROM coq_user";
+		return $this->pdo->request($rqt, $error);
 	}
 
 	public function find($PARAM)
 	{
-		$rqt = mysql_query("SELECT * FROM coq_user WHERE PARAM = ".$PARAM);
-		$data = mysql_fetch_assoc($rqt);
-		if (count($data) > 0)
-		{
-			$this->id = $data['id'];
-			$this->login = $data['login'];
-			$this->pwd = $data['pwd'];
-			$this->rights = $data['rights'];
-		}
-		 return $this;
+		$rqt = "SELECT * FROM coq_user WHERE id = ".$id;
+		$data = $this->pdo->request($rqt, $error);
+		if ($data.count > 0) return $data[0];
+		else return 0;
 	}
 }
 ?>

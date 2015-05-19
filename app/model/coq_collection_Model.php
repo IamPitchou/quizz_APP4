@@ -18,43 +18,34 @@ class  coq_collection_Model
 	
 	// Les accesseurs
 	public function get_id()
-	{	if ( IsValidAtt('id')) return $this->id; }
+	{	
+		return $this->id; 
+	}
 
 	public function get_title()
-	{	if ( IsValidAtt('title')) return $this->title; }
+	{	
+		return $this->title; 
+	}
 
 	public function get_difficulty()
-	{	if ( IsValidAtt('difficulty')) return $this->difficulty; }
+	{	
+		return $this->difficulty; 
+	}
 
 	// Les mutateurs
 	public function set_id($value)
 	{
-		if(!empty($value))
-			$this->id = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'id' ;
-		}
+		$this->id = $value;
 	}
 
 	public function set_title($value)
 	{
-		if(!empty($value))
-			$this->title = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'title' ;
-		}
+		$this->title = $value;
 	}
 
 	public function set_difficulty($value)
 	{
-		if(!empty($value))
-			$this->difficulty = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'difficulty' ;
-		}
+		$this->difficulty = $value;
 	}
 
 	public function add()
@@ -87,12 +78,18 @@ class  coq_collection_Model
 		$this->pdo->request($rqt, $error);
 		echo ("error = ". $error);
 	}
+	public function list_()
+	{
+		$rqt = "SELECT * FROM coq_collection";
+		return $this->pdo->request($rqt, $error);
+	}
 
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_collection WHERE id = ".$id;
 		$data = $this->pdo->request($rqt, $error);
-		return $data[0];
+		if ($data.count > 0) return $data[0];
+		else return 0;
 	}
 }
 ?>

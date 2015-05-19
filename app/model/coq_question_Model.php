@@ -25,95 +25,74 @@ class  coq_question_Model
 
 	// Les accesseurs
 	public function get_id()
-	{	if (IsValidAtt('id')) return $this->id; }
+	{	
+		return $this->id; 
+	}
 
 	public function get_theme_id()
-	{	if (IsValidAtt('theme_id')) return $this->theme_id; }
+	{	
+		return $this->theme_id; 
+	}
 
 	public function get_val()
-	{	if (IsValidAtt('val')) return $this->val; }
+	{	
+		return $this->val; 
+	}
 
 	public function get_answer1()
-	{	if (IsValidAtt('answer1')) return $this->answer1; }
+	{	
+		return $this->answer1; 
+	}
 
 	public function get_answer2()
-	{	if (IsValidAtt('answer2')) return $this->answer2; }
+	{	
+		return $this->answer2; 
+	}
 
 	public function get_answer3()
-	{	if (IsValidAtt('answer3')) return $this->answer3; }
+	{	
+		return $this->answer3; 
+	}
 
 	public function get_answerok()
-	{	if (IsValidAtt('answerok')) return $this->answerok; }
+	{	
+		return $this->answerok; 
+	}
 
 	// Les mutateurs
 	public function set_id($value)
 	{
-		if(!empty($value))
-			$this->id = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'id' ;
-		}
+		$this->id = $value;
 	}
 
 	public function set_theme_id($value)
 	{
-		if(!empty($value))
-			$this->theme_id = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'theme_id' ;
-		}
+		$this->theme_id = $value;
 	}
 
 	public function set_val($value)
 	{
-		if(!empty($value))
-			$this->val = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'val' ;
-		}
+		$this->val = $value;
 	}
 
 	public function set_answer1($value)
 	{
-		if(!empty($value))
-			$this->answer1 = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'answer1' ;
-		}
+		$this->answer1 = $value;
 	}
 
 	public function set_answer2($value)
 	{
-		if(!empty($value))
-			$this->answer2 = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'answer2' ;
-		}
+		$this->answer2 = $value;
 	}
 
 	public function set_answer3($value)
 	{
-		if(!empty($value))
-			$this->answer3 = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'answer3' ;
-		}
+		$this->answer3 = $value;
 	}
 
 	public function set_answerok($value)
 	{
-		if(!empty($value))
-			$this->answerok = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'answerok' ;
-		}
+		$this->answerok = $value;
 	}
 
 	public function add()
@@ -159,6 +138,11 @@ class  coq_question_Model
 		$this->pdo->request($rqt, $error);
 		echo ("error = ". $error);
 	}
+	public function list_()
+	{
+		$rqt = "SELECT * FROM coq_question";
+		return $this->pdo->request($rqt, $error);
+	}
 
 	public function get_question_by_theme($theme_id)
 	{
@@ -170,7 +154,8 @@ class  coq_question_Model
 	{
 		$rqt = "SELECT * FROM coq_question WHERE id = ".$id;
 		$data = $this->pdo->request($rqt, $error);
-		return $data[0];
+		if ($data.count > 0) return $data[0];
+		else return 0;
 	}
 }
 ?>

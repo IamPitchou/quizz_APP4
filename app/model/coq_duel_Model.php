@@ -1,31 +1,44 @@
 <?php 
+include_once("pdo.php");
+include_once("common.php");
 class  coq_duel_Model extends Model  
 {
 	private $user1_id;
 	private $user2_id;
 	private $current_round_id;
 	private $current_round_number;
+	private $pdo;
 
-	public function coq_duel($user1_id,$user2_id,$current_round_id,$current_round_number){ 
-		$this->user1_id=$user1_id;
-		$this->user2_id=$user2_id;
-		$this->current_round_id=$current_round_id;
-		$this->current_round_number=$current_round_number;
+	public function coq_duel($user1_id, $user2_id, $current_round_id, $current_round_number)
+	{ 
+		$this->user1_id = $user1_id;
+		$this->user2_id = $user2_id;
+		$this->current_round_id = $current_round_id;
+		$this->current_round_number = $current_round_number;
+		$this->pdo = initPDOObject();
 	} 
 
 	
 	// Les accesseurs
 	public function get_user1_id()
-	{	if ( $this->IsValidAtt('user1_id')) return $this->user1_id; }
+	{	
+		return $this->user1_id; 
+	}
 
 	public function get_user2_id()
-	{	if ( $this->IsValidAtt('user2_id')) return $this->user2_id; }
+	{	
+		return $this->user2_id; 
+	}
 
 	public function get_current_round_id()
-	{	if ( $this->IsValidAtt('current_round_id')) return $this->current_round_id; }
+	{	
+		return $this->current_round_id; 
+	}
 
 	public function get_current_round_number()
-	{	if ( $this->IsValidAtt('current_round_number')) return $this->current_round_number; }
+	{	
+		return $this->current_round_number; 
+	}
 
 	// Les mutateurs
 	public function set_user1_id($value)
@@ -33,7 +46,7 @@ class  coq_duel_Model extends Model
 		if(!empty($value))
 			$this->user1_id = $value;
 		else {
-			global $ErrorAttribut[];
+			global $ErrorAttribut;
 			$ErrorAttribut[] = 'user1_id' ;
 		}
 	}
@@ -43,7 +56,7 @@ class  coq_duel_Model extends Model
 		if(!empty($value))
 			$this->user2_id = $value;
 		else {
-			global $ErrorAttribut[];
+			global $ErrorAttribut;
 			$ErrorAttribut[] = 'user2_id' ;
 		}
 	}
@@ -53,7 +66,7 @@ class  coq_duel_Model extends Model
 		if(!empty($value))
 			$this->current_round_id = $value;
 		else {
-			global $ErrorAttribut[];
+			global $ErrorAttribut;
 			$ErrorAttribut[] = 'current_round_id' ;
 		}
 	}
@@ -63,7 +76,7 @@ class  coq_duel_Model extends Model
 		if(!empty($value))
 			$this->current_round_number = $value;
 		else {
-			global $ErrorAttribut[];
+			global $ErrorAttribut;
 			$ErrorAttribut[] = 'current_round_number' ;
 		}
 	}
@@ -85,7 +98,7 @@ class  coq_duel_Model extends Model
 			"'.$this->current_round_id.'",
 			"'.$this->current_round_number.'"
 		)';
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
+		$this->pdo->request($rqt, $error);
 	}
 
 	public function update($id)
@@ -97,45 +110,26 @@ class  coq_duel_Model extends Model
 			current_round_id = "'.$this->current_round_id.'",
 			current_round_number = "'.$this->current_round_number.'"
 		WHERE id ='.$id;
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
+		$this->pdo->request($rqt, $error);
 	}
 
-	public function delete($id)
+	public function list_()
 	{
-		$rqt = 'DELETE FROM coq_duel WHERE ID = '.$id;
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
+		$rqt = "SELECT * FROM coq_duel";
+		return $this->pdo->request($rqt, $error);
+	}
+	public function get_duels_by_player($id_user)
+	{
+		$rqt = "SELECT * FROM coq_duel WHERE user1_id = '.$id_user.' OR user2_id = '.$id_user.' ";
+		return $this->pdo->request($rqt, $error);
 	}
 
-	public function list()
+	public function find($id)
 	{
-		$tab = array();
-		$rqt = mysql_query("SELECT * FROM coq_duel");
-		while($data = mysql_fetch_assoc($rqt))
-			$tab[] = $data;
-		return $tab;
-	}
-
-	public function list_p($PARAM)
-	{
-		$tab = array();
-		$rqt = mysql_query("SELECT * FROM coq_duel WHERE PARAM = ".$PARAM);
-		$data = mysql_fetch_assoc($rqt);
-			$tab[] = $data;
-		return $tab;
-	}
-
-	public function find($PARAM)
-	{
-		$rqt = mysql_query("SELECT * FROM coq_duel WHERE PARAM = ".$PARAM);
-		$data = mysql_fetch_assoc($rqt);
-		if (count($data) > 0)
-		{
-			$this->user1_id = $data['user1_id'];
-			$this->user2_id = $data['user2_id'];
-			$this->current_round_id = $data['current_round_id'];
-			$this->current_round_number = $data['current_round_number'];
-		}
-		 return $this;
+		$rqt = "SELECT * FROM coq_duel WHERE id = ".$id;
+		$data = $this->pdo->request($rqt, $error);
+		if ($data.count >= 0) return $data[0];
+		else return 0;
 	}
 }
 ?>
