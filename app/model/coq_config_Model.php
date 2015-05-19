@@ -1,8 +1,17 @@
 <?php 
-class  coq_config_Model 
+class  coq_config_Model extends Model  
 {
 	private $key_2;
 	private $val;
+	private $pdo;
+
+	public function coq_config($key_2,$val)
+	{ 
+		$this->key_2 = $key_2;
+		$this->val = $val;
+		$this->pdo = initPDOObject();
+	} 
+
 	
 	// Les accesseurs
 	public function get_key_2()
@@ -12,22 +21,22 @@ class  coq_config_Model
 	{	if ( $this->IsValidAtt('val')) return $this->val; }
 
 	// Les mutateurs
-	public function set_key_2()
+	public function set_key_2($value)
 	{
 		if(!empty($value))
 			$this->key_2 = $value;
 		else {
-			global $ErrorAttribut[];
+			global $ErrorAttribut;
 			$ErrorAttribut[] = 'key_2' ;
 		}
 	}
 
-	public function set_val()
+	public function set_val($value)
 	{
 		if(!empty($value))
 			$this->val = $value;
 		else {
-			global $ErrorAttribut[];
+			global $ErrorAttribut;
 			$ErrorAttribut[] = 'val' ;
 		}
 	}
@@ -42,56 +51,33 @@ class  coq_config_Model
 		)
 		VALUES
 		(
-			"'.$this->key_2'",
-			"'.$this->val'"
+			"'.$this->key_2.'",
+			"'.$this->val.'"
 		)';
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
+		$this->pdo->request($rqt, $error);
 	}
 
 	public function update($id)
 	{
 		$rqt = 
 		'UPDATE coq_config SET
-			key_2 = "'$this->key_2'",
-			val = "'$this->val'"
+			key_2 = "'.$this->key_2.'",
+			val = "'.$this->val.'"
 		WHERE id ='.$id;
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
+		$this->pdo->request($rqt, $error);
 	}
 
 	public function delete($id)
 	{
 		$rqt = 'DELETE FROM coq_config WHERE ID = '.$id;
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
+		$this->pdo->request($rqt, $error);
 	}
 
-	public function list()
+	public function find($key)
 	{
-		$tab = array();
-		$rqt = mysql_query("SELECT * FROM coq_config");
-		while($data = mysql_fetch_assoc($rqt))
-			$tab[] = $data;
-		return $tab;
-	}
-
-	public function list($PARAM)
-	{
-		$tab = array();
-		$rqt = mysql_query("SELECT * FROM coq_config WHERE PARAM = ".$PARAM);
-		$data = mysql_fetch_assoc($rqt);
-			$tab[] = $data;
-		return $tab;
-	}
-
-	public function find($PARAM)
-	{
-		$rqt = mysql_query("SELECT * FROM coq_config WHERE PARAM = ".$PARAM);
-		$data = mysql_fetch_assoc($rqt);
-		if (count($data) > 0)
-		{
-			$this->key_2 = $data['key_2'];
-			$this->val = $data['val'];
-		}
-		 return $this;
+		$rqt = "SELECT * FROM coq_config WHERE key_2 = ".$key;
+		$data = $this->pdo->request($rqt, $error);
+		return $data[0];
 	}
 }
 ?>

@@ -1,5 +1,5 @@
 <?php 
-class  coq_round_Model  
+class  coq_round_Model extends Model  
 {
 	private $id;
 	private $chosen_theme1_id;
@@ -10,6 +10,18 @@ class  coq_round_Model
 	private $score2;
 	private $end1;
 	private $end2;
+
+	public function coq_round($chosen_theme1_id,$chosen_theme2_id,$collection_id,$selected_theme_id,$score1,$score2,$end1,$end2){ 
+		$this->chosen_theme1_id=$chosen_theme1_id;
+		$this->chosen_theme2_id=$chosen_theme2_id;
+		$this->collection_id=$collection_id;
+		$this->selected_theme_id=$selected_theme_id;
+		$this->score1=$score1;
+		$this->score2=$score2;
+		$this->end1=$end1;
+		$this->end2=$end2;
+	} 
+
 	
 	// Les accesseurs
 	public function get_id()
@@ -40,7 +52,7 @@ class  coq_round_Model
 	{	if ( $this->IsValidAtt('end2')) return $this->end2; }
 
 	// Les mutateurs
-	public function set_id()
+	public function set_id($value)
 	{
 		if(!empty($value))
 			$this->id = $value;
@@ -50,7 +62,7 @@ class  coq_round_Model
 		}
 	}
 
-	public function set_chosen_theme1_id()
+	public function set_chosen_theme1_id($value)
 	{
 		if(!empty($value))
 			$this->chosen_theme1_id = $value;
@@ -60,7 +72,7 @@ class  coq_round_Model
 		}
 	}
 
-	public function set_chosen_theme2_id()
+	public function set_chosen_theme2_id($value)
 	{
 		if(!empty($value))
 			$this->chosen_theme2_id = $value;
@@ -70,7 +82,7 @@ class  coq_round_Model
 		}
 	}
 
-	public function set_collection_id()
+	public function set_collection_id($value)
 	{
 		if(!empty($value))
 			$this->collection_id = $value;
@@ -80,7 +92,7 @@ class  coq_round_Model
 		}
 	}
 
-	public function set_selected_theme_id()
+	public function set_selected_theme_id($value)
 	{
 		if(!empty($value))
 			$this->selected_theme_id = $value;
@@ -90,7 +102,7 @@ class  coq_round_Model
 		}
 	}
 
-	public function set_score1()
+	public function set_score1($value)
 	{
 		if(!empty($value))
 			$this->score1 = $value;
@@ -100,7 +112,7 @@ class  coq_round_Model
 		}
 	}
 
-	public function set_score2()
+	public function set_score2($value)
 	{
 		if(!empty($value))
 			$this->score2 = $value;
@@ -110,7 +122,7 @@ class  coq_round_Model
 		}
 	}
 
-	public function set_end1()
+	public function set_end1($value)
 	{
 		if(!empty($value))
 			$this->end1 = $value;
@@ -120,7 +132,7 @@ class  coq_round_Model
 		}
 	}
 
-	public function set_end2()
+	public function set_end2($value)
 	{
 		if(!empty($value))
 			$this->end2 = $value;
@@ -147,15 +159,15 @@ class  coq_round_Model
 		)
 		VALUES
 		(
-			"'.$this->id'",
-			"'.$this->chosen_theme1_id'",
-			"'.$this->chosen_theme2_id'",
-			"'.$this->collection_id'",
-			"'.$this->selected_theme_id'",
-			"'.$this->score1'",
-			"'.$this->score2'",
-			"'.$this->end1'",
-			"'.$this->end2'"
+			"'.$this->id.'",
+			"'.$this->chosen_theme1_id.'",
+			"'.$this->chosen_theme2_id.'",
+			"'.$this->collection_id.'",
+			"'.$this->selected_theme_id.'",
+			"'.$this->score1.'",
+			"'.$this->score2.'",
+			"'.$this->end1.'",
+			"'.$this->end2.'"
 		)';
 		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
 	}
@@ -164,15 +176,15 @@ class  coq_round_Model
 	{
 		$rqt = 
 		'UPDATE coq_round SET
-			id = "'$this->id'",
-			chosen_theme1_id = "'$this->chosen_theme1_id'",
-			chosen_theme2_id = "'$this->chosen_theme2_id'",
-			collection_id = "'$this->collection_id'",
-			selected_theme_id = "'$this->selected_theme_id'",
-			score1 = "'$this->score1'",
-			score2 = "'$this->score2'",
-			end1 = "'$this->end1'",
-			end2 = "'$this->end2'"
+			id = "'.$this->id.'",
+			chosen_theme1_id = "'.$this->chosen_theme1_id.'",
+			chosen_theme2_id = "'.$this->chosen_theme2_id.'",
+			collection_id = "'.$this->collection_id.'",
+			selected_theme_id = "'.$this->selected_theme_id.'",
+			score1 = "'.$this->score1.'",
+			score2 = "'.$this->score2.'",
+			end1 = "'.$this->end1.'",
+			end2 = "'.$this->end2.'"
 		WHERE id ='.$id;
 		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
 	}
@@ -192,7 +204,7 @@ class  coq_round_Model
 		return $tab;
 	}
 
-	public function list($PARAM)
+	public function list_p($PARAM)
 	{
 		$tab = array();
 		$rqt = mysql_query("SELECT * FROM coq_round WHERE PARAM = ".$PARAM);

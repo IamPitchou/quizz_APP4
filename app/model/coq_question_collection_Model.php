@@ -1,9 +1,15 @@
 <?php 
-class  coq_question_collection_Model 
+class  coq_question_collection_Model extends Model  
 {
 	private $id;
 	private $question_id;
 	private $collection_id;
+
+	public function coq_question_collection($question_id,$collection_id){ 
+		$this->question_id=$question_id;
+		$this->collection_id=$collection_id;
+	} 
+
 	
 	// Les accesseurs
 	public function get_id()
@@ -16,7 +22,7 @@ class  coq_question_collection_Model
 	{	if ( $this->IsValidAtt('collection_id')) return $this->collection_id; }
 
 	// Les mutateurs
-	public function set_id()
+	public function set_id($value)
 	{
 		if(!empty($value))
 			$this->id = $value;
@@ -26,7 +32,7 @@ class  coq_question_collection_Model
 		}
 	}
 
-	public function set_question_id()
+	public function set_question_id($value)
 	{
 		if(!empty($value))
 			$this->question_id = $value;
@@ -36,7 +42,7 @@ class  coq_question_collection_Model
 		}
 	}
 
-	public function set_collection_id()
+	public function set_collection_id($value)
 	{
 		if(!empty($value))
 			$this->collection_id = $value;
@@ -57,9 +63,9 @@ class  coq_question_collection_Model
 		)
 		VALUES
 		(
-			"'.$this->id'",
-			"'.$this->question_id'",
-			"'.$this->collection_id'"
+			"'.$this->id.'",
+			"'.$this->question_id.'",
+			"'.$this->collection_id.'"
 		)';
 		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
 	}
@@ -68,9 +74,9 @@ class  coq_question_collection_Model
 	{
 		$rqt = 
 		'UPDATE coq_question_collection SET
-			id = "'$this->id'",
-			question_id = "'$this->question_id'",
-			collection_id = "'$this->collection_id'"
+			id = "'.$this->id.'",
+			question_id = "'.$this->question_id.'",
+			collection_id = "'.$this->collection_id.'"
 		WHERE id ='.$id;
 		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
 	}
@@ -90,7 +96,7 @@ class  coq_question_collection_Model
 		return $tab;
 	}
 
-	public function list($PARAM)
+	public function list_p($PARAM)
 	{
 		$tab = array();
 		$rqt = mysql_query("SELECT * FROM coq_question_collection WHERE PARAM = ".$PARAM);

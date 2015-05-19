@@ -1,10 +1,18 @@
 <?php 
-class  coq_duel_Model 
+class  coq_duel_Model extends Model  
 {
 	private $user1_id;
 	private $user2_id;
 	private $current_round_id;
 	private $current_round_number;
+
+	public function coq_duel($user1_id,$user2_id,$current_round_id,$current_round_number){ 
+		$this->user1_id=$user1_id;
+		$this->user2_id=$user2_id;
+		$this->current_round_id=$current_round_id;
+		$this->current_round_number=$current_round_number;
+	} 
+
 	
 	// Les accesseurs
 	public function get_user1_id()
@@ -20,7 +28,7 @@ class  coq_duel_Model
 	{	if ( $this->IsValidAtt('current_round_number')) return $this->current_round_number; }
 
 	// Les mutateurs
-	public function set_user1_id()
+	public function set_user1_id($value)
 	{
 		if(!empty($value))
 			$this->user1_id = $value;
@@ -30,7 +38,7 @@ class  coq_duel_Model
 		}
 	}
 
-	public function set_user2_id()
+	public function set_user2_id($value)
 	{
 		if(!empty($value))
 			$this->user2_id = $value;
@@ -40,7 +48,7 @@ class  coq_duel_Model
 		}
 	}
 
-	public function set_current_round_id()
+	public function set_current_round_id($value)
 	{
 		if(!empty($value))
 			$this->current_round_id = $value;
@@ -50,7 +58,7 @@ class  coq_duel_Model
 		}
 	}
 
-	public function set_current_round_number()
+	public function set_current_round_number($value)
 	{
 		if(!empty($value))
 			$this->current_round_number = $value;
@@ -72,10 +80,10 @@ class  coq_duel_Model
 		)
 		VALUES
 		(
-			"'.$this->user1_id'",
-			"'.$this->user2_id'",
-			"'.$this->current_round_id'",
-			"'.$this->current_round_number'"
+			"'.$this->user1_id.'",
+			"'.$this->user2_id.'",
+			"'.$this->current_round_id.'",
+			"'.$this->current_round_number.'"
 		)';
 		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
 	}
@@ -84,10 +92,10 @@ class  coq_duel_Model
 	{
 		$rqt = 
 		'UPDATE coq_duel SET
-			user1_id = "'$this->user1_id'",
-			user2_id = "'$this->user2_id'",
-			current_round_id = "'$this->current_round_id'",
-			current_round_number = "'$this->current_round_number'"
+			user1_id = "'.$this->user1_id.'",
+			user2_id = "'.$this->user2_id.'",
+			current_round_id = "'.$this->current_round_id.'",
+			current_round_number = "'.$this->current_round_number.'"
 		WHERE id ='.$id;
 		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
 	}
@@ -107,7 +115,7 @@ class  coq_duel_Model
 		return $tab;
 	}
 
-	public function list($PARAM)
+	public function list_p($PARAM)
 	{
 		$tab = array();
 		$rqt = mysql_query("SELECT * FROM coq_duel WHERE PARAM = ".$PARAM);

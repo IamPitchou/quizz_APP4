@@ -1,8 +1,13 @@
 <?php 
-class  coq_theme_Model 
+class  coq_theme_Model extends Model  
 {
 	private $id;
 	private $val;
+
+	public function coq_theme($val){ 
+		$this->val=$val;
+	} 
+
 	
 	// Les accesseurs
 	public function get_id()
@@ -12,7 +17,7 @@ class  coq_theme_Model
 	{	if ( $this->IsValidAtt('val')) return $this->val; }
 
 	// Les mutateurs
-	public function set_id()
+	public function set_id($value)
 	{
 		if(!empty($value))
 			$this->id = $value;
@@ -22,7 +27,7 @@ class  coq_theme_Model
 		}
 	}
 
-	public function set_val()
+	public function set_val($value)
 	{
 		if(!empty($value))
 			$this->val = $value;
@@ -42,8 +47,8 @@ class  coq_theme_Model
 		)
 		VALUES
 		(
-			"'.$this->id'",
-			"'.$this->val'"
+			"'.$this->id.'",
+			"'.$this->val.'"
 		)';
 		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
 	}
@@ -52,8 +57,8 @@ class  coq_theme_Model
 	{
 		$rqt = 
 		'UPDATE coq_theme SET
-			id = "'$this->id'",
-			val = "'$this->val'"
+			id = "'.$this->id.'",
+			val = "'.$this->val.'"
 		WHERE id ='.$id;
 		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
 	}
@@ -73,7 +78,7 @@ class  coq_theme_Model
 		return $tab;
 	}
 
-	public function list($PARAM)
+	public function list_p($PARAM)
 	{
 		$tab = array();
 		$rqt = mysql_query("SELECT * FROM coq_theme WHERE PARAM = ".$PARAM);

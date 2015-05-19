@@ -1,10 +1,17 @@
 <?php 
-class  coq_user_Model
+class  coq_user_Model extends Model  
 {
 	private $id;
 	private $login;
 	private $pwd;
 	private $rights;
+
+	public function coq_user($login,$pwd,$rights){ 
+		$this->login=$login;
+		$this->pwd=$pwd;
+		$this->rights=$rights;
+	} 
+
 	
 	// Les accesseurs
 	public function get_id()
@@ -20,7 +27,7 @@ class  coq_user_Model
 	{	if ( $this->IsValidAtt('rights')) return $this->rights; }
 
 	// Les mutateurs
-	public function set_id()
+	public function set_id($value)
 	{
 		if(!empty($value))
 			$this->id = $value;
@@ -30,7 +37,7 @@ class  coq_user_Model
 		}
 	}
 
-	public function set_login()
+	public function set_login($value)
 	{
 		if(!empty($value))
 			$this->login = $value;
@@ -40,7 +47,7 @@ class  coq_user_Model
 		}
 	}
 
-	public function set_pwd()
+	public function set_pwd($value)
 	{
 		if(!empty($value))
 			$this->pwd = $value;
@@ -50,7 +57,7 @@ class  coq_user_Model
 		}
 	}
 
-	public function set_rights()
+	public function set_rights($value)
 	{
 		if(!empty($value))
 			$this->rights = $value;
@@ -72,10 +79,10 @@ class  coq_user_Model
 		)
 		VALUES
 		(
-			"'.$this->id'",
-			"'.$this->login'",
-			"'.$this->pwd'",
-			"'.$this->rights'"
+			"'.$this->id.'",
+			"'.$this->login.'",
+			"'.$this->pwd.'",
+			"'.$this->rights.'"
 		)';
 		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
 	}
@@ -84,10 +91,10 @@ class  coq_user_Model
 	{
 		$rqt = 
 		'UPDATE coq_user SET
-			id = "'$this->id'",
-			login = "'$this->login'",
-			pwd = "'$this->pwd'",
-			rights = "'$this->rights'"
+			id = "'.$this->id.'",
+			login = "'.$this->login.'",
+			pwd = "'.$this->pwd.'",
+			rights = "'.$this->rights.'"
 		WHERE id ='.$id;
 		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
 	}
@@ -107,7 +114,7 @@ class  coq_user_Model
 		return $tab;
 	}
 
-	public function list($PARAM)
+	public function list_p($PARAM)
 	{
 		$tab = array();
 		$rqt = mysql_query("SELECT * FROM coq_user WHERE PARAM = ".$PARAM);

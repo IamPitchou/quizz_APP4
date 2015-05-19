@@ -1,47 +1,58 @@
 <?php 
+include_once("pdo.php");
+include_once("common.php");
 class  coq_collection_Model  
 {
 	private $id;
 	private $title;
 	private $difficulty;
+	private $pdo;
+
+	public function coq_collection($title,$difficulty)
+	{ 
+		$this->title = $title;
+		$this->difficulty= $difficulty;
+		$this->pdo = initPDOObject();
+	} 
+
 	
 	// Les accesseurs
 	public function get_id()
-	{	if ( $this->IsValidAtt('id')) return $this->id; }
+	{	if ( IsValidAtt('id')) return $this->id; }
 
 	public function get_title()
-	{	if ( $this->IsValidAtt('title')) return $this->title; }
+	{	if ( IsValidAtt('title')) return $this->title; }
 
 	public function get_difficulty()
-	{	if ( $this->IsValidAtt('difficulty')) return $this->difficulty; }
+	{	if ( IsValidAtt('difficulty')) return $this->difficulty; }
 
 	// Les mutateurs
-	public function set_id()
+	public function set_id($value)
 	{
 		if(!empty($value))
 			$this->id = $value;
 		else {
-			global $ErrorAttribut[];
+			global $ErrorAttribut;
 			$ErrorAttribut[] = 'id' ;
 		}
 	}
 
-	public function set_title()
+	public function set_title($value)
 	{
 		if(!empty($value))
 			$this->title = $value;
 		else {
-			global $ErrorAttribut[];
+			global $ErrorAttribut;
 			$ErrorAttribut[] = 'title' ;
 		}
 	}
 
-	public function set_difficulty()
+	public function set_difficulty($value)
 	{
 		if(!empty($value))
 			$this->difficulty = $value;
 		else {
-			global $ErrorAttribut[];
+			global $ErrorAttribut;
 			$ErrorAttribut[] = 'difficulty' ;
 		}
 	}
@@ -57,59 +68,31 @@ class  coq_collection_Model
 		)
 		VALUES
 		(
-			"'.$this->id'",
-			"'.$this->title'",
-			"'.$this->difficulty'"
+			"'.$this->id.'",
+			"'.$this->title.'",
+			"'.$this->difficulty.'"
 		)';
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
+		$this->pdo->request($rqt, $error);
+		echo ("error = ". $error);
 	}
 
 	public function update($id)
-	{
+	{ 
 		$rqt = 
 		'UPDATE coq_collection SET
-			id = "'$this->id'",
-			title = "'$this->title'",
-			difficulty = "'$this->difficulty'"
+			id = "'.$this->id.'",
+			title = "'.$this->title.'",
+			difficulty = "'.$this->difficulty.'"
 		WHERE id ='.$id;
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
+		$this->pdo->request($rqt, $error);
+		echo ("error = ". $error);
 	}
 
-	public function delete($id)
+	public function find($id)
 	{
-		$rqt = 'DELETE FROM coq_collection WHERE ID = '.$id;
-		mysql_query($rqt) or die (mysql_error().' sur la ligne '.__LINE__);
-	}
-
-	public function list()
-	{
-		$tab = array();
-		$rqt = mysql_query("SELECT * FROM coq_collection");
-		while($data = mysql_fetch_assoc($rqt))
-			$tab[] = $data;
-		return $tab;
-	}
-
-	public function list($PARAM)
-	{
-		$tab = array();
-		$rqt = mysql_query("SELECT * FROM coq_collection WHERE PARAM = ".$PARAM);
-		$data = mysql_fetch_assoc($rqt);
-			$tab[] = $data;
-		return $tab;
-	}
-
-	public function find($PARAM)
-	{
-		$rqt = mysql_query("SELECT * FROM coq_collection WHERE PARAM = ".$PARAM);
-		$data = mysql_fetch_assoc($rqt);
-		if (count($data) > 0)
-		{
-			$this->id = $data['id'];
-			$this->title = $data['title'];
-			$this->difficulty = $data['difficulty'];
-		}
-		 return $this;
+		$rqt = "SELECT * FROM coq_collection WHERE id = ".$id;
+		$data = $this->pdo->request($rqt, $error);
+		return $data[0];
 	}
 }
 ?>
