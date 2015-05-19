@@ -3,20 +3,20 @@
 	<h2>{{ duel.user1 }} VS {{ duel.user2 }} - Round {{ duel.current_round_number }} : <small>8 - 4</small></h2>
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Let's Play !</h1>
-			I don't want to bloat this Ani Theme Free Edition AngularJS Admin theme with a lot of plugins. To install plugins we have bower. Let's keep it real clean!<br /><br />
+			<h2>Thème : {{ duel.round.collection.theme }}</h2>
+			<br/>
 			<p>
 
 		   		{{ currentQuestion.val }}
 
 		   		<table class="table table-hover">
-				   <tr><td>{{ currentQuestion.answer1 }}</td></tr>
-				   <tr><td>{{ currentQuestion.answer2 }}</td></tr>
-				   <tr><td>{{ currentQuestion.answer3 }}</td></tr>
-				   <tr><td>{{ currentQuestion.answerOK }}</td></tr>
+				   <tr><td ng-click="inc()">{{ currentQuestion.answer1 }}</td></tr>
+				   <tr><td ng-click="inc()">{{ currentQuestion.answer2 }}</td></tr>
+				   <tr><td ng-click="inc()">{{ currentQuestion.answer3 }}</td></tr>
+				   <tr><td ng-click="inc()">{{ currentQuestion.answerOK }}</td></tr>
 				</table>
 
-				<a class="btn btn-primary btn-lg btn-outline btn-rounded">Valider</a>
+				Question {{ numCurrentQuestion+1 }} / 5
 			</p>
 		</div>
 	</div>
