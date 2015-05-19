@@ -8,8 +8,8 @@
  * Controller of coq
  */
 angular.module('coq')
-  .controller('DashboardCtrl', function($scope, $state) {
+    .controller('QuizCtrl', function($scope, $state) {
 
-    $scope.$state = $state;
+        $scope.$state = $state;
 
-  });
+    });
