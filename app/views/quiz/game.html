@@ -9,12 +9,17 @@
 
 		   		{{ currentQuestion.val }}
 
+		   		{{ score }}
+
 		   		<table class="table table-hover">
-				   <tr><td ng-click="inc()">{{ currentQuestion.answer1 }}</td></tr>
-				   <tr><td ng-click="inc()">{{ currentQuestion.answer2 }}</td></tr>
-				   <tr><td ng-click="inc()">{{ currentQuestion.answer3 }}</td></tr>
-				   <tr><td ng-click="inc()">{{ currentQuestion.answerOK }}</td></tr>
+				   <tr><td ng-click="valider(0)">{{ currentQuestion.answer1 }}</td></tr>
+				   <tr><td ng-click="valider(0)">{{ currentQuestion.answer2 }}</td></tr>
+				   <tr><td ng-click="valider(0)">{{ currentQuestion.answer3 }}</td></tr>
+				   <tr><td ng-click="valider(1)">{{ currentQuestion.answerOK }}</td></tr>
 				</table>
+
+				
+				<!--div ng-bind-html="shuffledAnswersTab"></div-->
 
 				Question {{ numCurrentQuestion+1 }} / 5
 			</p>
