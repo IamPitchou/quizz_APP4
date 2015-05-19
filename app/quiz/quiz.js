@@ -21,4 +21,11 @@ angular.module('coq')
 			$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
 		});
 
+		$scope.inc = function() {
+			if($scope.numCurrentQuestion < 4) {
+	            $scope.numCurrentQuestion = $scope.numCurrentQuestion+1;
+	            $scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
+            }
+        }
+
     });
