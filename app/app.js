@@ -41,7 +41,7 @@ angular
                 templateUrl: 'app/views/dashboard.html',
                 controller: 'DashboardCtrl'
             })
-            .state('overview', {
+            .state('d_overview', {
                 url: '/overview',
                 parent: 'dashboard',
                 templateUrl: 'app/views/dashboard/overview.html'
@@ -56,6 +56,16 @@ angular
                 parent: 'base-menu',
                 templateUrl: 'app/views/quiz.html',
                 controller: 'QuizCtrl'
+            })
+            .state('q_overview', {
+                url: '/overview',
+                parent: 'quiz',
+                templateUrl: 'app/views/quiz/overview.html',
+            })
+            .state('game', {
+                url: '/game',
+                parent: 'quiz',
+                templateUrl: 'app/views/quiz/game.html',
             })
 		;
 	});
