@@ -60,12 +60,12 @@ angular
             .state('q_overview', {
                 url: '/overview',
                 parent: 'quiz',
-                templateUrl: 'app/views/quiz/overview.html',
+                templateUrl: 'app/views/quiz/overview.html'
             })
             .state('game', {
                 url: '/game',
                 parent: 'quiz',
-                templateUrl: 'app/views/quiz/game.html',
+                templateUrl: 'app/views/quiz/game.html'
             })
 		;
 	});
