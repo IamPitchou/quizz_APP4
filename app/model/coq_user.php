@@ -8,7 +8,6 @@ class  coq_user
 	private $pwd;
 	private $pseudo;
 	private $rights;
-	private $pdo;
 
 	public function coq_user($login, $pwd, $pseudo, $rights)
 	{ 
@@ -16,7 +15,6 @@ class  coq_user
 		$this->pwd = $pwd;
 		$this->pseudo = $pseudo;
 		$this->rights = $rights;
-		$this->pdo = initPDOObject();
 	} 
 
 	
@@ -89,6 +87,7 @@ class  coq_user
 			"'.$this->pwd.'",
 			"'.$this->rights.'"
 		)';
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
@@ -101,6 +100,7 @@ class  coq_user
 			pwd = "'.$this->pwd.'",
 			rights = "'.$this->rights.'"
 		WHERE id ='.$id;
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
@@ -113,8 +113,9 @@ class  coq_user
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_user WHERE id = ".$id;
+		$this->pdo = initPDOObject();
 		$data = $this->pdo->request($rqt, $error);
-		if ($data.count > 0) return $data[0];
+		if (count($data) > 0) return $data[0];
 		else return 0;
 	}
 

@@ -5,7 +5,6 @@ class coq_theme
 {
 	private $id;
 	private $val;
-	private $pdo;
 
 	public function coq_theme($val)
 	{ 
@@ -49,6 +48,7 @@ class coq_theme
 			"'.$this->id.'",
 			"'.$this->val.'"
 		)';
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
@@ -59,12 +59,14 @@ class coq_theme
 			id = "'.$this->id.'",
 			val = "'.$this->val.'"
 		WHERE id ='.$id;
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
 	public function list_()
 	{
 		$rqt = "SELECT * FROM coq_theme";
+		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
 
@@ -72,7 +74,8 @@ class coq_theme
 	{
 		$rqt = "SELECT * FROM coq_theme WHERE id = ".$id;
 		$data = $this->pdo->request($rqt, $error);
-		if ($data.count > 0) return $data[0];
+		$this->pdo = initPDOObject();
+		if (count($data) > 0) return $data[0];
 		else return 0;
 	}
 	public function JSON ()

@@ -5,7 +5,6 @@ class  coq_config
 {
 	private $key_2;
 	private $val;
-	private $pdo;
 
 	public function coq_config($key_2,$val)
 	{ 
@@ -50,6 +49,7 @@ class  coq_config
 			"'.$this->key_2.'",
 			"'.$this->val.'"
 		)';
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
@@ -60,25 +60,29 @@ class  coq_config
 			key_2 = "'.$this->key_2.'",
 			val = "'.$this->val.'"
 		WHERE id ='.$id;
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 	public function list_()
 	{
 		$rqt = "SELECT * FROM coq_config";
+		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
 
 	public function delete($id)
 	{
 		$rqt = 'DELETE FROM coq_config WHERE ID = '.$id;
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
 	public function find($key)
 	{
 		$rqt = "SELECT * FROM coq_config WHERE key_2 = ".$key;
+		$this->pdo = initPDOObject();
 		$data = $this->pdo->request($rqt, $error);
-		if ($data.count >= 0) return $data[0];
+		if (count($data) >= 0) return $data[0];
 		else return 0;
 	}
 	public function JSON ()

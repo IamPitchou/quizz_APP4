@@ -6,13 +6,11 @@ class  coq_collection
 	private $id;
 	private $title;
 	private $difficulty;
-	private $pdo;
 
-	public function coq_collection($title,$difficulty)
+	public function coq_collection($title, $difficulty)
 	{ 
 		$this->title = $title;
 		$this->difficulty= $difficulty;
-		$this->pdo = initPDOObject();
 	} 
 
 	
@@ -63,6 +61,7 @@ class  coq_collection
 			"'.$this->title.'",
 			"'.$this->difficulty.'"
 		)';
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 		echo ("error = ". $error);
 	}
@@ -75,20 +74,23 @@ class  coq_collection
 			title = "'.$this->title.'",
 			difficulty = "'.$this->difficulty.'"
 		WHERE id ='.$id;
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 		echo ("error = ". $error);
 	}
 	public function list_()
 	{
 		$rqt = "SELECT * FROM coq_collection";
+		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
 
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_collection WHERE id = ".$id;
+		$this->pdo = initPDOObject();
 		$data = $this->pdo->request($rqt, $error);
-		if ($data.count > 0) return $data[0];
+		if (count($data) > 0) return $data[0];
 		else return 0;
 	}
 	public function JSON ()

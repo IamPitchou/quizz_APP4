@@ -6,13 +6,11 @@ class  coq_question_collection
 	private $id;
 	private $question_id;
 	private $collection_id;
-	private $pdo;
 
 	public function coq_question_collection($question_id, $collection_id)
 	{ 
 		$this->question_id = $question_id;
 		$this->collection_id = $collection_id;
-		$this->pdo = initPDOObject();
 	} 
 
 	
@@ -63,6 +61,7 @@ class  coq_question_collection
 			"'.$this->question_id.'",
 			"'.$this->collection_id.'"
 		)';
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
@@ -74,20 +73,23 @@ class  coq_question_collection
 			question_id = "'.$this->question_id.'",
 			collection_id = "'.$this->collection_id.'"
 		WHERE id ='.$id;
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
 	public function get_questions_by_collection_id ($collection_id)
 	{
 		$rqt = "SELECT * FROM coq_question_collection WHERE collection_id = ".$collection_id;
+		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);;
 	}
 
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_question_collection WHERE id = ".$id;
+		$this->pdo = initPDOObject();
 		$data = $this->pdo->request($rqt, $error);
-		if ($data.count > 0) return $data[0];
+		if (count($data) > 0) return $data[0];
 		else return 0;
 	}
 	public function JSON ()

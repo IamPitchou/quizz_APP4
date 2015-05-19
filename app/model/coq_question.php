@@ -10,7 +10,6 @@ class  coq_question
 	private $answer2;
 	private $answer3;
 	private $answerok;
-	private $pdo;
 
 	public function coq_question_Model ($theme, $val, $answer1, $answer2, $answer3, $answerok)
 	{
@@ -20,7 +19,6 @@ class  coq_question
 		$this->answer2 = $answer2;
 		$this->answer3 = $answer3;
 		$this->answerok = $answerok;
-		$this->pdo = initPDOObject();
 	}
 
 	// Les accesseurs
@@ -118,7 +116,7 @@ class  coq_question
 			"'.$this->answer3.'",
 			"'.$this->answerok.'"
 		)';
-		
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 		echo ("error = ". $error);
 	}
@@ -135,26 +133,30 @@ class  coq_question
 			answer3 = "'.$this->answer3.'",
 			answerOK = "'.$this->answerok.'"
 		WHERE id ='.$id;
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 		echo ("error = ". $error);
 	}
 	public function list_()
 	{
 		$rqt = "SELECT * FROM coq_question";
+		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
 
 	public function get_question_by_theme($theme_id)
 	{
 		$rqt = "SELECT * FROM coq_question WHERE theme_id = ".$theme_id;
+		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
 
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_question WHERE id = ".$id;
+		$this->pdo = initPDOObject();
 		$data = $this->pdo->request($rqt, $error);
-		if ($data.count > 0) return $data[0];
+		if (count($data) > 0) return $data[0];
 		else return 0;
 	}
 	public function JSON ()

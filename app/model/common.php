@@ -1,4 +1,5 @@
 <?php
+	include_once('pdo.php');
 	function checkVar ($var)
 	{
 		if (isset($var) && !empty($var))
@@ -8,6 +9,7 @@
 	}
 	function initPDOObject ()
 	{
-		return new PDOObject("localhost", "coq", "root", "", $error);
+		$p = new PDOObject("localhost", "coq", "root", "", $error);
+		return $p;
 	}
 ?>

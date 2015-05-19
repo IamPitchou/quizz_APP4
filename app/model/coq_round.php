@@ -12,7 +12,6 @@ class  coq_round
 	private $score2;
 	private $end1;
 	private $end2;
-	private $pdo;
 
 	public function coq_round($chosen_theme1_id, $chosen_theme2_id, $collection_id, $selected_theme_id, $score1, $score2, $end1, $end2)
 	{ 
@@ -24,7 +23,6 @@ class  coq_round
 		$this->score2 = $score2;
 		$this->end1 = $end1;
 		$this->end2 = $end2;
-		$this->pdo = initPDOObject();
 	} 
 
 	
@@ -147,6 +145,7 @@ class  coq_round
 			"'.$this->end1.'",
 			"'.$this->end2.'"
 		)';
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
@@ -164,12 +163,14 @@ class  coq_round
 			end1 = "'.$this->end1.'",
 			end2 = "'.$this->end2.'"
 		WHERE id ='.$id;
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
 	public function list_()
 	{
 		$rqt = "SELECT * FROM coq_round";
+		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
 
@@ -177,8 +178,9 @@ class  coq_round
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_round WHERE id = ".$id;
+		$this->pdo = initPDOObject();
 		$data = $this->pdo->request($rqt, $error);
-		if ($data.count > 0) return $data[0];
+		if (count($data) > 0) return $data[0];
 		else return 0;
 	}
 

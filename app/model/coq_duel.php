@@ -7,7 +7,6 @@ class  coq_duel
 	private $user2_id;
 	private $current_round_id;
 	private $current_round_number;
-	private $pdo;
 
 	public function coq_duel($user1_id, $user2_id, $current_round_id, $current_round_number)
 	{ 
@@ -15,7 +14,6 @@ class  coq_duel
 		$this->user2_id = $user2_id;
 		$this->current_round_id = $current_round_id;
 		$this->current_round_number = $current_round_number;
-		$this->pdo = initPDOObject();
 	} 
 
 	
@@ -43,42 +41,22 @@ class  coq_duel
 	// Les mutateurs
 	public function set_user1_id($value)
 	{
-		if(!empty($value))
-			$this->user1_id = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'user1_id' ;
-		}
+		$this->user1_id = $value;
 	}
 
 	public function set_user2_id($value)
 	{
-		if(!empty($value))
-			$this->user2_id = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'user2_id' ;
-		}
+		$this->user2_id = $value;
 	}
 
 	public function set_current_round_id($value)
 	{
-		if(!empty($value))
-			$this->current_round_id = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'current_round_id' ;
-		}
+		$this->current_round_id = $value;
 	}
 
 	public function set_current_round_number($value)
 	{
-		if(!empty($value))
-			$this->current_round_number = $value;
-		else {
-			global $ErrorAttribut;
-			$ErrorAttribut[] = 'current_round_number' ;
-		}
+		$this->current_round_number = $value;
 	}
 
 	public function add()
@@ -98,6 +76,7 @@ class  coq_duel
 			"'.$this->current_round_id.'",
 			"'.$this->current_round_number.'"
 		)';
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
@@ -110,25 +89,29 @@ class  coq_duel
 			current_round_id = "'.$this->current_round_id.'",
 			current_round_number = "'.$this->current_round_number.'"
 		WHERE id ='.$id;
+		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
 
 	public function list_()
 	{
 		$rqt = "SELECT * FROM coq_duel";
+		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
 	public function get_duels_by_player($id_user)
 	{
 		$rqt = "SELECT * FROM coq_duel WHERE user1_id = '.$id_user.' OR user2_id = '.$id_user.' ";
+		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
 
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_duel WHERE id = ".$id;
+		$this->pdo = initPDOObject();
 		$data = $this->pdo->request($rqt, $error);
-		if ($data.count > 0) return $data[0];
+		if (count($data) > 0) return $data[0];
 		else return 0;
 	}
 	public function JSON ()
