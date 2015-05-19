@@ -21,6 +21,11 @@ angular.module('coq')
 			$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
 		});
 
+		var url = "app/json/getScoreTotalDuel.php";
+		$http.get(url).success( function(response) {
+			$scope.scoreTotalDuel = response;
+		});
+
 		$scope.inc = function() {
 			if($scope.numCurrentQuestion < 4) {
 	            $scope.numCurrentQuestion = $scope.numCurrentQuestion+1;
