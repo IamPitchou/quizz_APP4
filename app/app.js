@@ -24,6 +24,11 @@ angular
 				url: '',
 				templateUrl: 'app/views/base.html'
 			})
+            .state('base-menu', {
+                abstract: true,
+                url: '',
+                templateUrl: 'app/views/base-menu.html'
+            })
             .state('login', {
                 url: '/login',
                 parent: 'base',
@@ -32,7 +37,7 @@ angular
             })
             .state('dashboard', {
                 url: '/dashboard',
-                parent: 'base',
+                parent: 'base-menu',
                 templateUrl: 'app/views/dashboard.html',
                 controller: 'DashboardCtrl'
             })
@@ -48,7 +53,7 @@ angular
             })
             .state('quiz', {
                 url: '/quiz',
-                parent: 'base',
+                parent: 'base-menu',
                 templateUrl: 'app/views/quiz.html',
                 controller: 'QuizCtrl'
             })
