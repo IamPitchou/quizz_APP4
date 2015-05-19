@@ -6566,7 +6566,7 @@ button.close {
   right: 0;
   bottom: 0;
   overflow: auto;
-  background: #5f3813;
+  background: #5d2915;
   text-align: center;
   color: #fff;
   padding: 3em;
@@ -6648,7 +6648,7 @@ button.close {
     overflow-x: hidden;
     overflow-y: auto;
     /* Scrollable contents if viewport is shorter than content. */
-    background-color: #3ca2e0;
+    background-color: #5d2915;
     border-right: 1px solid #eee;
   }
 }
@@ -6720,21 +6720,21 @@ button.close {
   background: none;
   border: none;
   box-shadow: none;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
-  color: #FFF;
+  border-bottom: 2px solid rgba(247, 139, 30, 0.4);
+  color: #fbae01;
   border-radius: 0;
 }
 .input-underline::-moz-placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(247, 139, 30, 0.7);
 }
 .input-underline::-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(247, 139, 30, 0.7);
 }
 .input-underline::-webkit-input-placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(247, 139, 30, 0.7);
 }
 .input-underline:focus {
-  border-bottom: 2px solid #ffffff;
+  border-bottom: 2px solid #fbae01;
   box-shadow: none;
 }
 .btn-outline {
@@ -6793,6 +6793,22 @@ button.close {
 .btn-outline.btn-danger:hover {
   box-shadow: 0 0 0 2px #d9534f inset;
   color: #d9534f;
+}
+.btn-outline.btn-quiz-brown {
+  box-shadow: 0 0 0 2px #33170c inset;
+  color: #33170c;
+}
+.btn-outline.btn-quiz-brown:hover {
+  box-shadow: 0 0 0 2px #5d2915 inset;
+  color: #5d2915;
+}
+.btn-outline.btn-quiz-orange {
+  box-shadow: 0 0 0 2px #c88b01 inset;
+  color: #c88b01;
+}
+.btn-outline.btn-quiz-orange:hover {
+  box-shadow: 0 0 0 2px #fbae01 inset;
+  color: #fbae01;
 }
 .btn-rounded {
   border-radius: 50px;
