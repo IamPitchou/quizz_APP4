@@ -24,14 +24,14 @@ angular.module('coq')
 
         var urlAllUsers = "app/json/getAllDuelsOfUser.php";
         $http.get(urlAllUsers).success( function(response) {
-            $scope.userList = response.users;
-            $scope.nbUserList = response.users.length;
+            $scope.userList = response.duels;
+            $scope.nbUserList = response.duels.length;
         }).error( function() {
             $scope.userList = 0;
         });
 
 
-        var url = "app/json/getDuel.php?duel=1";
+        var url = "app/php/getDuel.php?duel=1";
 		$http.get(url).success( function(response) {
 			$scope.duel = response;
 			$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];

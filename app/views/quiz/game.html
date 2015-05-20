@@ -1,3 +1,9 @@
+<!-- BALISE CSS A PORTER DANS LE LESS PUIS A SUPPRIMER -->
+<style>
+	.quiz-answer {
+		cursor: pointer;
+	}
+</style>
 <div>
 	<a ui-sref="reports" class="pull-right btn btn-primary btn-outline btn-rounded">Reports</a>
 	<h2>{{ duel.user1 }} VS {{ duel.user2 }} - Round {{ duel.current_round_number }} : <small>{{ scoreTotalDuel.score1 }} - {{ scoreTotalDuel.score2 }}</small></h2>
@@ -9,11 +15,16 @@
 
 		   		{{ currentQuestion.val }}	   		
 
-				<table class="table table-hover">
+				<table class="table table-hover quiz-answer">
 				<tr ng-repeat="answer in answersShuffled">
 			    	<td ng-click="valider(answer.isOk)">{{ answer.name }}</td>
 			    </tr>
 				</table>
+
+				<!--div id="load_spinner" style="height:10em;">
+					<div class="loader">Loading...</div>
+					<div style="clear:both;"></div>
+				</div-->
 
 				Question {{ numCurrentQuestion+1 }} / 5 | Score : {{ score }}
 			</p>
