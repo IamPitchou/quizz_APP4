@@ -1,24 +1,34 @@
 {
     "users": [
         {
-            "name": "User 1",
+            "name": "Timo",
             "score1": 3,
-            "score2": 5
+            "score2": 5,
+            "next_round" : 1
         },
         {
-            "name": "User 2",
+            "name": "Seb",
             "score1": 3,
-            "score2": 5
+            "score2": 5,
+            "next_round" : 3
         },
         {
-            "name": "User 3",
+            "name": "Johan",
             "score1": 3,
-            "score2": 5
+            "score2": 5,
+            "next_round" : 2
         },
         {
-            "name": "User 4",
+            "name": "Osvaldo",
             "score1": 3,
-            "score2": 5
+            "score2": 5,
+            "next_round" : 1
+        },
+        {
+            "name": "Renan",
+            "score1": 3,
+            "score2": 5,
+            "next_round" : 1
         }
     ]
 }

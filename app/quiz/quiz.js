@@ -16,22 +16,26 @@ angular.module('coq')
 
         };*/
 
+        $scope.numCurrentQuestion = 0;
+        $scope.score = 0;
+        $scope.answers = Array;
+        $scope.nbUserList = 0;
+
+
         var urlAllUsers = "app/json/getAllDuelsOfUser.php";
         $http.get(urlAllUsers).success( function(response) {
             $scope.userList = response.users;
+            $scope.nbUserList = response.users.length;
         }).error( function() {
             $scope.userList = 0;
         });
 
-        $scope.numCurrentQuestion = 0;
-        $scope.score = 0;
-        $scope.answers = Array;
 
-        var url = "app/json/getDuel.php";
+        var url = "app/json/getDuel.php?duel=1";
 		$http.get(url).success( function(response) {
 			$scope.duel = response;
 			$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
-
+			//document.getElementById('load_spinner').style.display = 'none';
 			shuffleAnswers();
 		});
 
