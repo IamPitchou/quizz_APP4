@@ -6652,9 +6652,11 @@ button.close {
     border-right: 1px solid #eee;
   }
 }
-.dashboard-page .nav > li > a:hover,
+.dashboard-page .nav > li > a:hover {
+  background: #33170c;
+}
 .dashboard-page .nav > li > a:focus {
-  background: #2698dd;
+  background: #fbae01;
 }
 .dashboard-page .nav-sidebar {
   margin-right: -21px;
@@ -6672,7 +6674,7 @@ button.close {
 .dashboard-page .nav-sidebar > .active > a:hover,
 .dashboard-page .nav-sidebar > .active > a:focus {
   color: #fff;
-  background-color: #2698dd;
+  background-color: #fbae01;
 }
 .dashboard-page .main {
   padding: 20px;

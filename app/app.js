@@ -52,6 +52,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             parent: 'dashboard',
             templateUrl: 'app/views/dashboard/reports.html'
         })
+        .state('d_account', {
+            url: '/overview',
+            parent: 'dashboard',
+            templateUrl: 'app/views/dashboard/account.html'
+        })
         .state('quiz', {
             url: '/quiz',
             parent: 'base-menu',
