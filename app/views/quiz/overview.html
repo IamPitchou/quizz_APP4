@@ -1,9 +1,12 @@
 <div>
-	<a ui-sref="reports" class="pull-right btn btn-primary btn-outline btn-rounded">Reports</a>
+	<a ui-sref="game" class="pull-right btn btn-primary btn-outline btn-rounded">Let's play</a>
 	<h2>Quiz - Accueil <small>Why is Ani Theme so awesome?</small></h2>
 	<div class="jumbotron">
 		<div class="container">
 			<h1>Quiz - Accueil</h1>
+
+            {{getAllDuelsOfUser()}}
+            <div ng-repeat="user in userList">{{user.name}}</div>
 			I don't want to bloat this Ani Theme Free Edition AngularJS Admin theme with a lot of plugins. To install plugins we have bower. Let's keep it real clean!<br /><br />
 			<p>
 				<a class="btn btn-primary btn-lg btn-outline btn-rounded">Learn more</a>

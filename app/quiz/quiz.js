@@ -12,6 +12,16 @@ angular.module('coq')
 
         $scope.$state = $state;
 
+        /*$scope.getAllDuelsOfUser = function() {
+
+        };*/
+
+        var urlAllUsers = "app/json/getAllDuelsOfUser.php";
+        $http.get(urlAllUsers).success( function(response) {
+            $scope.userList = response.users;
+        }).error( function() {
+            $scope.userList = 0;
+        });
 
         $scope.numCurrentQuestion = 0;
         $scope.score = 0;
