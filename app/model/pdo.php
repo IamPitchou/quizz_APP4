@@ -24,6 +24,10 @@ class PDOObject
 				$answ =  $this->pdoObject->query($query)->fetchAll();
 				return $answ;
 			}
+			else if (strrpos($query, 'INSERT') || strrpos($query, 'UPDATE'))
+			{
+				$answ =  $this->pdoObject->query($query);
+			}
 			else
 			{
 				$answ =  $this->pdoObject->query($query)->fetchColumn();
