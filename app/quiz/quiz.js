@@ -12,32 +12,50 @@ angular.module('coq')
 
         $scope.$state = $state;
 
-        /*$scope.getAllDuelsOfUser = function() {
-
-        };*/
-
         $scope.numCurrentQuestion = 0;
         $scope.score = 0;
         $scope.answers = Array;
         $scope.nbDuelList = 0;
         $scope.idDuel = $stateParams.idDuelClicked;
+        var config;
 
-        var urlAllUsers = "app/json/getAllDuelsOfUser.php";
-        $http.get(urlAllUsers).success( function(response) {
-            $scope.duelList = response.duels;
-            $scope.nbDuelList = response.duels.length;
-        }).error( function() {
-            $scope.duelList = 0;
-        });
+		config = {
+            params: {
+                user: '1'
+            }
+        };
+        $http.post("app/php/getAllDuelsOfUser.php", null, config)
+            .success(function (data, status, headers, config) {
+           	 	$scope.duelList = data.duels;
+           	 	$scope.nbDuelList = data.duels.length;
+            })
+            .error(function (data, status, headers, config)
+            {
+                $scope[errorMessage] = "SUBMIT ERROR"; // Erreur de soumission du formulaire
+            });
 
         $scope.showDuel = function(id) {
-	        var url = "app/php/getDuel.php?duel="+id;
+	        /*var url = "app/php/getDuel.php?duel="+id;
 			$http.get(url).success( function(response) {
 				$scope.duel = response;
 				$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
 				//document.getElementById('load_spinner').style.display = 'none';
 				shuffleAnswers();
-			});
+			});*/
+			config = {
+            params: {
+                user: '1'
+	            }
+	        };
+	        $http.post("app/php/getAllDuelsOfUser.php", null, config)
+	            .success(function (data, status, headers, config) {
+	           	 	$scope.duelList = data.duels;
+	           	 	$scope.nbDuelList = data.duels.length;
+	            })
+	            .error(function (data, status, headers, config)
+	            {
+	                $scope[errorMessage] = "SUBMIT ERROR"; // Erreur de soumission du formulaire
+	            });
 		}
 
 		var url = "app/json/getScoreTotalDuel.php";
