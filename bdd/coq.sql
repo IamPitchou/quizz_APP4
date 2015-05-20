@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 19 Mai 2015 à 14:13
+-- Généré le :  Mer 20 Mai 2015 à 09:41
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.5.8
 
@@ -31,7 +31,14 @@ CREATE TABLE IF NOT EXISTS `coq_collection` (
   `title` varchar(20) NOT NULL COMMENT 'Titre de la série',
   `difficulty` int(11) NOT NULL COMMENT 'Niveau de difficulté (1 facile, 2 moyen, 3 difficile)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `coq_collection`
+--
+
+INSERT INTO `coq_collection` (`id`, `title`, `difficulty`) VALUES
+(1, 'dscd', 1);
 
 -- --------------------------------------------------------
 
@@ -52,15 +59,26 @@ CREATE TABLE IF NOT EXISTS `coq_config` (
 --
 
 CREATE TABLE IF NOT EXISTS `coq_duel` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user1_id` int(10) unsigned NOT NULL,
   `user2_id` int(10) unsigned NOT NULL,
   `current_round_id` int(10) unsigned NOT NULL COMMENT 'Round courant',
   `current_round_number` int(10) unsigned NOT NULL COMMENT 'Numéro de round (1, 2, 3..)',
+  `score1` int(10) unsigned NOT NULL,
+  `score2` int(10) unsigned NOT NULL,
   PRIMARY KEY (`user1_id`,`user2_id`,`current_round_id`),
+  UNIQUE KEY `id` (`id`),
   KEY `COQ_Dual_FKIndex1` (`user1_id`),
   KEY `COQ_Dual_FKIndex2` (`user2_id`),
   KEY `FK_DUEL__ROUND` (`current_round_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Les duels';
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Les duels' AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `coq_duel`
+--
+
+INSERT INTO `coq_duel` (`id`, `user1_id`, `user2_id`, `current_round_id`, `current_round_number`, `score1`, `score2`) VALUES
+(1, 1, 2, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -78,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `coq_question` (
   `answerOK` varchar(255) NOT NULL COMMENT 'La bonne réponse',
   PRIMARY KEY (`id`),
   KEY `question_id` (`theme_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `coq_question`
@@ -87,7 +105,9 @@ CREATE TABLE IF NOT EXISTS `coq_question` (
 INSERT INTO `coq_question` (`id`, `theme_id`, `val`, `answer1`, `answer2`, `answer3`, `answerOK`) VALUES
 (0, 1, 'Est ce que Seb sait jouer Ã  Xenoverse', 'Oui', 'Non', 'Peut Ãªtre', 'TG'),
 (7, 1, 'lollolol', 'l', 'o', 'l', 'o'),
-(8, 2, 'fdvg', 'v', 'ffd', 'd', 'f');
+(8, 2, 'fdvg', 'v', 'ffd', 'd', 'f'),
+(9, 1, 'fvf', 'vfv', 'vfd', 'vf', 'v'),
+(10, 1, 'fvdfv', 'vff', 'vf', 'fv', 'fv');
 
 -- --------------------------------------------------------
 
@@ -103,7 +123,17 @@ CREATE TABLE IF NOT EXISTS `coq_question_collection` (
   KEY `collection_id` (`question_id`),
   KEY `collection_id_2` (`collection_id`),
   KEY `question_id` (`question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table d''association question / série' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table d''association question / série' AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `coq_question_collection`
+--
+
+INSERT INTO `coq_question_collection` (`id`, `question_id`, `collection_id`) VALUES
+(1, 0, 1),
+(2, 7, 1),
+(3, 9, 1),
+(4, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -127,7 +157,14 @@ CREATE TABLE IF NOT EXISTS `coq_round` (
   KEY `collection_id` (`collection_id`),
   KEY `selected_theme_id` (`selected_theme_id`),
   KEY `selected_theme_id_2` (`selected_theme_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `coq_round`
+--
+
+INSERT INTO `coq_round` (`id`, `chosen_theme1_id`, `chosen_theme2_id`, `collection_id`, `selected_theme_id`, `score1`, `score2`, `end1`, `end2`) VALUES
+(1, 1, 1, 1, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -164,7 +201,15 @@ CREATE TABLE IF NOT EXISTS `coq_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pseudo` (`pseudo`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `coq_user`
+--
+
+INSERT INTO `coq_user` (`id`, `login`, `pwd`, `pseudo`, `rights`) VALUES
+(1, 'lol', 'l', 'lll', 1),
+(2, 'c,sdc', 'd', 'dfdf', 0);
 
 --
 -- Contraintes pour les tables exportées

@@ -7,13 +7,21 @@ class  coq_duel
 	private $user2_id;
 	private $current_round_id;
 	private $current_round_number;
+	private $score1;
+	private $score2;
 
-	public function coq_duel($user1_id, $user2_id, $current_round_id, $current_round_number)
+	public function _construct ()
+	{
+		return $this;
+	}
+	public function coq_duel($user1_id, $user2_id, $current_round_id, $current_round_number, $score1, $score2)
 	{ 
 		$this->user1_id = $user1_id;
 		$this->user2_id = $user2_id;
 		$this->current_round_id = $current_round_id;
 		$this->current_round_number = $current_round_number;
+		$this->score1 = $score1;
+		$this->score2 = $score2;
 	} 
 
 	
@@ -37,6 +45,14 @@ class  coq_duel
 	{	
 		return $this->current_round_number; 
 	}
+	public function get_score1()
+	{	
+		return $this->score1; 
+	}
+	public function get_score2()
+	{	
+		return $this->score2; 
+	}
 
 	// Les mutateurs
 	public function set_user1_id($value)
@@ -58,6 +74,14 @@ class  coq_duel
 	{
 		$this->current_round_number = $value;
 	}
+	public function set_score1($value)
+	{
+		$this->score1 = $value;
+	}
+	public function set_score2($value)
+	{
+		$this->score2 = $value;
+	}
 
 	public function add()
 	{
@@ -67,14 +91,18 @@ class  coq_duel
 			user1_id,
 			user2_id,
 			current_round_id,
-			current_round_number
+			current_round_number,
+			score1, 
+			score2
 		)
 		VALUES
 		(
 			"'.$this->user1_id.'",
 			"'.$this->user2_id.'",
 			"'.$this->current_round_id.'",
-			"'.$this->current_round_number.'"
+			"'.$this->current_round_number.'", 
+			"'.$this->score1.'",
+			"'.$this->score2.'"
 		)';
 		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
@@ -87,7 +115,9 @@ class  coq_duel
 			user1_id = "'.$this->user1_id.'",
 			user2_id = "'.$this->user2_id.'",
 			current_round_id = "'.$this->current_round_id.'",
-			current_round_number = "'.$this->current_round_number.'"
+			current_round_number = "'.$this->current_round_number.'", 
+			score1 = "'.$this->score1.'",
+			score1 = "'.$this->score2.'"
 		WHERE id ='.$id;
 		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
@@ -117,7 +147,8 @@ class  coq_duel
 	public function JSON ()
 	{
 		return json_encode(array("user1_id" => $this->user1_id, "user2_id" => $this->user2_id, 
-								 "current_round_id" => $this->current_round_id, "current_round_number" => $this->current_round_number));
+								 "current_round_id" => $this->current_round_id, "current_round_number" => $this->current_round_number, 
+								 "score1" => $this->score1, "score2" => $this->score2));
 	}
 }
 ?>
