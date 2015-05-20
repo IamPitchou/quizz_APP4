@@ -29,7 +29,8 @@
                 }
                 $arr = array("user1" => $data[0]["pseudo1"], "user2" => $data[0]["pseudo2"], 
                              "current_round_number" => $data[0]["current_round_number"], "round" => array("score1" => $data[0]["score1"], 
-                             "score2" => $data[0]["score2"], "collection" => array("theme" => $data[0]["theme"], "questions" => $arr_data_qestion)));
+                             "score2" => $data[0]["score2"], "collection" => array("theme" => $data[0]["theme"], 
+                             "questions" => $arr_data_qestion)));
                 echo (json_encode($arr));
             }
         }

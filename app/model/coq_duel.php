@@ -143,6 +143,16 @@ class  coq_duel
 		else return 0;
 
 	}
+	public function get_score($id_duel)
+	{
+		$rqt = "SELECT cd.score1, cd.score2
+				FROM coq_duel cd
+				WHERE cd.id = ".$id_duel."";
+		$this->pdo = initPDOObject();
+		$data = $this->pdo->request($rqt, $error);
+		if (count($data) > 0) return $data[0];
+		else return 0;
+	}
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_duel WHERE id = ".$id;
