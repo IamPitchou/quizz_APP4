@@ -17,7 +17,10 @@ angular.module('coq')
         $scope.answers = Array;
         $scope.nbDuelList = 0;
 
-        $scope.userId = '2';
+        $scope.timer = 0;
+        $scope.timeout;
+
+        $scope.userId = '1';
 
         var config;
 
@@ -51,6 +54,7 @@ angular.module('coq')
 					$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
 					//document.getElementById('load_spinner').style.display = 'none';
 					shuffleAnswers();
+					startTimer();
 	            })
 	            .error(function (data, status, headers, config)
 	            {
@@ -65,6 +69,55 @@ angular.module('coq')
 	            {
 	                $scope[errorMessage] = "SUBMIT ERROR";
 	            });
+
+		}
+
+		function startTimer() {
+			document.getElementById('loader').style.display = 'block';
+			document.getElementById('border').style.display = 'block';
+			var loader = document.getElementById('loader')
+			  , border = document.getElementById('border')
+			  , pi = Math.PI
+			  , t = 1;
+
+			(function draw() {
+			  $scope.timer ++;
+			  $scope.timer  %= 360;
+			  var r = ( $scope.timer  * pi / 180 )
+			    , x = Math.sin( r ) * 125
+			    , y = Math.cos( r ) * - 125
+			    , mid = ( $scope.timer  > 180 ) ? 1 : 0
+			    , anim = 'M 0 0 v -125 A 125 125 1 ' 
+			           + mid + ' 1 ' 
+			           +  x  + ' ' 
+			           +  y  + ' z';
+			 
+			  loader.setAttribute( 'd', anim );
+			  border.setAttribute( 'd', anim );
+
+			  if($scope.timer  == 0) {
+			  	clearTimeout($scope.timeout);
+			  	/*if($scope.numCurrentQuestion < 4) {
+				  	$scope.numCurrentQuestion++;
+				  	$scope.showDuel($scope.duelId);
+			  	}
+			  	else {
+			  		document.getElementById('quizzgame').innerHTML = '<h2>Série terminée</h2><br/>';
+	            	$scope.numCurrentQuestion = 0;
+
+	            	endSerie($scope.userId, $scope.duelId, $scope.score);
+			  	}*/
+
+			  	$http.get(".")
+	            .success(function (data) {
+	           	 	$scope.valider(0);
+	            })
+
+			  }
+			  else {
+			  	$scope.timeout = setTimeout(draw, t);
+			 }
+			})();
 		}
 
 		function shuffleAnswers() {
@@ -82,6 +135,8 @@ angular.module('coq')
 		}
 
 		$scope.valider = function(isOk) {
+			clearTimeout($scope.timeout);
+			$scope.timer = 0;
 			if($scope.numCurrentQuestion <= 5) {
 				if(isOk) {
 					$scope.score = $scope.score+1;
@@ -92,11 +147,13 @@ angular.module('coq')
 	            if($scope.numCurrentQuestion == 5) {
 	            	document.getElementById('quizzgame').innerHTML = '<h2>Série terminée</h2><br/>';
 	            	$scope.numCurrentQuestion = 0;
-
+	            	document.getElementById('loader').style.display = 'none';
+					document.getElementById('border').style.display = 'none';
 	            	endSerie($scope.userId, $scope.duelId, $scope.score);
 	            }
 	            else {
 	            	shuffleAnswers();
+	            	startTimer();
 	            }
             }         
         }

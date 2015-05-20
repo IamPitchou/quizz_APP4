@@ -14,7 +14,7 @@
                         <tr>
                             <td>Joueur 1</td>
                             <td>Score J1</td>
-                            <td class="text-center">Prochain round</td>
+                            <td class="text-center">Round en cours</td>
                             <td class="text-right">Score J2</td>
                             <td class="text-right">Joueur 2</td>
                         </tr>
@@ -25,7 +25,7 @@
                     <tr ng-repeat="duel in duelList">
                         <td>Alain Deloin</td>
                         <td>{{ duel.score1 }}</td>
-                        <td class="text-center">Round {{ duel.round }}</td>
+                        <td class="text-center">Round {{ duel.current_round_number }}</td>
                         <td class="text-right">{{ duel.score2 }}</td>
                         <td class="text-right"><a onclick ng-click="showDuel(duel.id)" ui-sref="game({idDuelClicked: '1'})">{{ duel.name }}</a></td>
                     </tr>
