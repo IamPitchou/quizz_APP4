@@ -19,19 +19,19 @@ angular.module('coq')
         $scope.numCurrentQuestion = 0;
         $scope.score = 0;
         $scope.answers = Array;
-        $scope.nbUserList = 0;
+        $scope.nbDuelList = 0;
 
 
         var urlAllUsers = "app/json/getAllDuelsOfUser.php";
         $http.get(urlAllUsers).success( function(response) {
-            $scope.userList = response.duels;
-            $scope.nbUserList = response.duels.length;
+            $scope.duelList = response.duels;
+            $scope.nbDuelList = response.duels.length;
         }).error( function() {
-            $scope.userList = 0;
+            $scope.duelList = 0;
         });
 
 
-        var url = "app/php/getDuel.php?duel=1";
+        var url = "app/php/getDuel.php";
 		$http.get(url).success( function(response) {
 			$scope.duel = response;
 			$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
