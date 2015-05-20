@@ -10,11 +10,7 @@ class  coq_duel
 	private $score1;
 	private $score2;
 
-	public function _construct ()
-	{
-		return $this;
-	}
-	public function coq_duel($user1_id, $user2_id, $current_round_id, $current_round_number, $score1, $score2)
+	public function init($user1_id, $user2_id, $current_round_id, $current_round_number, $score1, $score2)
 	{ 
 		$this->user1_id = $user1_id;
 		$this->user2_id = $user2_id;
@@ -129,13 +125,24 @@ class  coq_duel
 		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
-	public function get_duels_by_player($id_user)
+	public function get_duels ($id_duel)
 	{
-		$rqt = "SELECT * FROM coq_duel WHERE user1_id = '.$id_user.' OR user2_id = '.$id_user.' ";
+		
+		$rqt = "SELECT  cd.id, cu1.pseudo as pseudo1, cu2.pseudo as pseudo2, cd.current_round_number, ct.val as theme, cq.val as question, 
+						cq.answer1, cq.answer2, cq.answer3, cq.answerOK, cr.score1, cr.score2
+				FROM coq_duel cd, coq_user cu1, coq_user cu2, coq_round cr, coq_theme ct, coq_question cq
+				WHERE cd.id = ".$id_duel."
+				AND cd.user1_id = cu1.id
+				AND cd.user2_id = cu2.id 
+				AND cd.current_round_id = cr.id
+				AND cr.selected_theme_id = ct.id
+				AND cq.theme_id = ct.id";
 		$this->pdo = initPDOObject();
-		return $this->pdo->request($rqt, $error);
-	}
+		$data = $this->pdo->request($rqt, $error);
+		if (count($data) > 0) return $data;
+		else return 0;
 
+	}
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_duel WHERE id = ".$id;

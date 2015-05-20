@@ -6,7 +6,7 @@ class  coq_config
 	private $key_2;
 	private $val;
 
-	public function coq_config($key_2,$val)
+	public function init($key_2,$val)
 	{ 
 		$this->key_2 = $key_2;
 		$this->val = $val;

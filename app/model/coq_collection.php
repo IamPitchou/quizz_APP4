@@ -7,7 +7,7 @@ class  coq_collection
 	private $title;
 	private $difficulty;
 
-	public function coq_collection($title, $difficulty)
+	public function init($title, $difficulty)
 	{ 
 		$this->title = $title;
 		$this->difficulty= $difficulty;

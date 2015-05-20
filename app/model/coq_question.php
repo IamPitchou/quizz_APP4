@@ -11,7 +11,7 @@ class  coq_question
 	private $answer3;
 	private $answerok;
 
-	public function coq_question_Model ($theme, $val, $answer1, $answer2, $answer3, $answerok)
+	public function init ($theme, $val, $answer1, $answer2, $answer3, $answerok)
 	{
 		$this->theme_id = $theme;
 		$this->val = $val;

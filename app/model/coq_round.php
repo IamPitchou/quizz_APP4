@@ -13,7 +13,7 @@ class  coq_round
 	private $end1;
 	private $end2;
 
-	public function coq_round($chosen_theme1_id, $chosen_theme2_id, $collection_id, $selected_theme_id, $score1, $score2, $end1, $end2)
+	public function init($chosen_theme1_id, $chosen_theme2_id, $collection_id, $selected_theme_id, $score1, $score2, $end1, $end2)
 	{ 
 		$this->chosen_theme1_id = $chosen_theme1_id;
 		$this->chosen_theme2_id = $chosen_theme2_id;

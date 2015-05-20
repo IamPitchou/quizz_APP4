@@ -7,7 +7,7 @@ class  coq_question_collection
 	private $question_id;
 	private $collection_id;
 
-	public function coq_question_collection($question_id, $collection_id)
+	public function init($question_id, $collection_id)
 	{ 
 		$this->question_id = $question_id;
 		$this->collection_id = $collection_id;

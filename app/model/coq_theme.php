@@ -6,7 +6,7 @@ class coq_theme
 	private $id;
 	private $val;
 
-	public function coq_theme($val)
+	public function init($val)
 	{ 
 		$this->val = $val;
 		$this->pdo = initPDOObject();
