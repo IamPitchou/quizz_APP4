@@ -69,7 +69,14 @@ class  coq_config
 		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
-
+	public function get_nb_round_duel()
+	{
+		$rqt = "SELECT val FROM coq_config WHERE key_2 = \"nb_round_duel\"";
+		$this->pdo = initPDOObject();
+		$answ = $this->pdo->request($rqt, $error);
+		if (count($answ) > 0) return $answ[0]["val"];
+		else return 0;
+	}
 	public function delete($id)
 	{
 		$rqt = 'DELETE FROM coq_config WHERE ID = '.$id;
