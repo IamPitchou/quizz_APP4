@@ -17,11 +17,15 @@ angular.module('coq')
         $scope.answers = Array;
         $scope.nbDuelList = 0;
 
+        $scope.userId = '2';
+
         var config;
 
 		config = {
             params: {
-                user: '1'
+                user: $scope.userId,
+                duel: 0,
+                score: 0
             }
         };
         $http.post("app/php/getAllDuelsOfUser.php", null, config)
@@ -36,9 +40,9 @@ angular.module('coq')
 
         $scope.showDuel = function(id) {
 			config = {
-            params: {
-                duel: id
-	            }
+	            params: {
+	                duel: id
+		           }
 	        };
 	        $scope.duelId = id;
 	        $http.post("app/php/getDuel.php", null, config)
@@ -89,7 +93,7 @@ angular.module('coq')
 	            	document.getElementById('quizzgame').innerHTML = '<h2>Série terminée</h2><br/>';
 	            	$scope.numCurrentQuestion = 0;
 
-	            	endSerie('1', $scope.duelId, $scope.score);
+	            	endSerie($scope.userId, $scope.duelId, $scope.score);
 	            }
 	            else {
 	            	shuffleAnswers();
@@ -98,7 +102,21 @@ angular.module('coq')
         }
 
         function endSerie(userId, duelId, score) {
-        	
+        	config = {
+	            params: {
+	                user: userId,
+	                duel: duelId,
+	                score: score
+		           }
+	        };
+	        //alert(userId+" "+duelId+" "+score);
+        	$http.post("app/php/submitRound.php", null, config)
+	            .success(function () {
+	            })
+	            .error(function (data, status, headers, config)
+	            {
+	                $scope[errorMessage] = "SUBMIT ERROR";
+	            });
         }
 
     });

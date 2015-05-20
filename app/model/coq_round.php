@@ -162,7 +162,6 @@ class  coq_round
 			end1 = "'.$this->end1.'",
 			end2 = "'.$this->end2.'"
 		WHERE id ='.$id;
-		echo $rqt;
 		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
