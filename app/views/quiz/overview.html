@@ -5,12 +5,34 @@
 		<div class="container">
 			<h1>Quiz - Accueil</h1>
 
-            {{getAllDuelsOfUser()}}
-            <div ng-repeat="user in userList">{{user.name}}</div>
 			I don't want to bloat this Ani Theme Free Edition AngularJS Admin theme with a lot of plugins. To install plugins we have bower. Let's keep it real clean!<br /><br />
 			<p>
 				<a class="btn btn-primary btn-lg btn-outline btn-rounded">Learn more</a>
 			</p>
-		</div>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Joueur 1</td>
+                            <td>Score J1</td>
+                            <td></td>
+                            <td class="text-right">Score J2</td>
+                            <td class="text-right">Joueur 2</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                    <tr ng-repeat="user in userList">
+                        <td>Alain Deloin</td>
+                        <td>{{ user.score1 }}</td>
+                        <td class="text-center">-</td>
+                        <td class="text-right">{{ user.score2 }}</td>
+                        <td class="text-right"><a ui-sref="game">{{ user.name }}</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 	</div>
 </div>
