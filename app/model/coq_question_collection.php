@@ -79,9 +79,15 @@ class  coq_question_collection
 
 	public function get_questions_by_collection_id ($collection_id)
 	{
-		$rqt = "SELECT * FROM coq_question_collection WHERE collection_id = ".$collection_id;
+		$rqt = "SELECT cq.id, ct.val as theme, cq.val, cq.answer1, cq.answer2, cq.answer3, cq.answerOK
+				FROM coq_question_collection as cqc, coq_question as cq, coq_theme as ct 
+				WHERE cqc.collection_id = ".$collection_id."
+				AND cqc.question_id = cq.id
+				AND ct.id = cq.theme_id";
 		$this->pdo = initPDOObject();
-		return $this->pdo->request($rqt, $error);;
+		$answ = $this->pdo->request($rqt, $error);
+		if (count($answ) > 0) return $answ;
+		else return 0;   	
 	}
 
 	public function find($id)
