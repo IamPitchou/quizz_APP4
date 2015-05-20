@@ -125,7 +125,6 @@ class  coq_question
 	{
 		$rqt = 
 		'UPDATE coq_question SET
-			id = "'.$this->id.'",
 			theme_id = "'.$this->theme_id.'",
 			val = "'.$this->val.'",
 			answer1 = "'.$this->answer1.'",

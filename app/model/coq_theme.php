@@ -56,7 +56,6 @@ class coq_theme
 	{
 		$rqt = 
 		'UPDATE coq_theme SET
-			id = "'.$this->id.'",
 			val = "'.$this->val.'"
 		WHERE id ='.$id;
 		$this->pdo = initPDOObject();

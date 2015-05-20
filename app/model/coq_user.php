@@ -95,7 +95,6 @@ class  coq_user
 	{
 		$rqt = 
 		'UPDATE coq_user SET
-			id = "'.$this->id.'",
 			login = "'.$this->login.'",
 			pwd = "'.$this->pwd.'",
 			rights = "'.$this->rights.'"

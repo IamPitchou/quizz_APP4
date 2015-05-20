@@ -69,7 +69,6 @@ class  coq_question_collection
 	{
 		$rqt = 
 		'UPDATE coq_question_collection SET
-			id = "'.$this->id.'",
 			question_id = "'.$this->question_id.'",
 			collection_id = "'.$this->collection_id.'"
 		WHERE id ='.$id;
