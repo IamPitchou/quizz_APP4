@@ -8,7 +8,7 @@
  * Controller of coq
  */
 angular.module('coq')
-    .controller('QuizCtrl', function($scope, $state, $http, $sce) {
+    .controller('QuizCtrl', function($scope, $state, $http, $stateParams) {
 
         $scope.$state = $state;
 
@@ -20,7 +20,7 @@ angular.module('coq')
         $scope.score = 0;
         $scope.answers = Array;
         $scope.nbDuelList = 0;
-
+        $scope.idDuel = $stateParams.idDuelClicked;
 
         var urlAllUsers = "app/json/getAllDuelsOfUser.php";
         $http.get(urlAllUsers).success( function(response) {
@@ -30,14 +30,15 @@ angular.module('coq')
             $scope.duelList = 0;
         });
 
-
-        var url = "app/php/getDuel.php";
-		$http.get(url).success( function(response) {
-			$scope.duel = response;
-			$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
-			//document.getElementById('load_spinner').style.display = 'none';
-			shuffleAnswers();
-		});
+        $scope.showDuel = function(id) {
+	        var url = "app/php/getDuel.php?duel="+id;
+			$http.get(url).success( function(response) {
+				$scope.duel = response;
+				$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
+				//document.getElementById('load_spinner').style.display = 'none';
+				shuffleAnswers();
+			});
+		}
 
 		var url = "app/json/getScoreTotalDuel.php";
 		$http.get(url).success( function(response) {
