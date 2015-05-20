@@ -8,8 +8,10 @@
  * Controller of coq
  */
 angular.module('coq')
-  .controller('DashboardCtrl', function($scope, $state) {
+    .controller('DashboardCtrl', function($scope, $state, loginService) {
+        $scope.$state = $state;
 
-    $scope.$state = $state;
-
-  });
+        $scope.logout=function(){
+            loginService.logout();
+        }
+    });

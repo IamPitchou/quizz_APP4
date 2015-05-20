@@ -1,20 +1,7 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST")
-{
-	if (isset($_GET["user"]))
-	{
-		// AJAX form submission
-		$user = json_decode($_GET["user"]);
-
-		$result = json_encode(array(
-			"receivedUser" => $user->email,
-			"receivedPassword" => $user->password));
-	}
-	else
-	{
-		$result = "INVALID REQUEST DATA";
-	}
-
-	echo $result;
-}
+    $user=json_decode(file_get_contents('php://input'));  //get user from
+	if($user->email=='al@ad.in' && $user->password=='aladin')
+		session_start();
+		$_SESSION['uid']=uniqid('coq_');
+		print $_SESSION['uid'];
 ?>
