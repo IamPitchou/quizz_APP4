@@ -51,21 +51,16 @@ angular.module('coq')
 	            {
 	                $scope[errorMessage] = "SUBMIT ERROR";
 	            });
+
+	        $http.post("app/php/getScoreTotalDuel.php", null, config)
+	            .success(function (data, status, headers, config) {
+	           	 	$scope.scoreTotalDuel = data;
+	            })
+	            .error(function (data, status, headers, config)
+	            {
+	                $scope[errorMessage] = "SUBMIT ERROR";
+	            });
 		}
-		
-		config = {
-        params: {
-            duel: 1
-            }
-        };
-        $http.post("app/json/getScoreTotalDuel.php", null, config)
-            .success(function (data, status, headers, config) {
-           	 	$scope.scoreTotalDuel = data;
-            })
-            .error(function (data, status, headers, config)
-            {
-                $scope[errorMessage] = "SUBMIT ERROR";
-            });
 
 		function shuffleAnswers() {
 			$scope.answers[0] = Array(1, $scope.currentQuestion.answerOK);
@@ -82,18 +77,21 @@ angular.module('coq')
 		}
 
 		$scope.valider = function(isOk) {
-			if(isOk) {
-				$scope.score = $scope.score+1;
-			}
-			if($scope.numCurrentQuestion < 4) {
+			if($scope.numCurrentQuestion <= 5) {
+				if(isOk) {
+					$scope.score = $scope.score+1;
+				}
 	            $scope.numCurrentQuestion = $scope.numCurrentQuestion+1;
 	            $scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
 
-	            shuffleAnswers(); 
-            }
-            else if($scope.numCurrentQuestion >= 4) {
-            	$scope.numCurrentQuestion = 0;
-            }
+	            if($scope.numCurrentQuestion == 5) {
+	            	document.getElementById('quizzgame').innerHTML = '<h2>Série terminée</h2><br/>';
+	            	$scope.numCurrentQuestion = 0;
+	            }
+	            else {
+	            	shuffleAnswers();
+	            }
+            }         
         }
 
     });
