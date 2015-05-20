@@ -153,7 +153,6 @@ class  coq_round
 	{
 		$rqt = 
 		'UPDATE coq_round SET
-			id = "'.$this->id.'",
 			chosen_theme1_id = "'.$this->chosen_theme1_id.'",
 			chosen_theme2_id = "'.$this->chosen_theme2_id.'",
 			collection_id = "'.$this->collection_id.'",
@@ -163,6 +162,7 @@ class  coq_round
 			end1 = "'.$this->end1.'",
 			end2 = "'.$this->end2.'"
 		WHERE id ='.$id;
+		echo $rqt;
 		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}

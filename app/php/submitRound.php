@@ -3,9 +3,9 @@
 	include_once("../model/coq_config.php");
 	include_once("../model/coq_duel.php");
 	include_once("../model/coq_round.php");
-	$id_duel = 1;//htmlspecialchars($_POST["duel"]);
-	$user_id = 1;//htmlspecialchars($_POST["user"]);
-	$score = 1;//htmlspecialchars($_POST["score"]);
+	$id_duel = htmlspecialchars($_GET["duel"]);
+	$user_id = htmlspecialchars($_GET["user"]);
+	$score = htmlspecialchars($_GET["score"]);
     if (!checkVar($id_duel))
         echo ('Error unable to find the duel');
     else
@@ -45,10 +45,10 @@
     							else
     							{
 	    							$round->init($data_round["chosen_theme1_id"], $data_round["chosen_theme2_id"], $data_round["collection_id"],
-	    										 $data_round["selected_theme_id"], $score, $data_round["score2"], true, 
+	    										 $data_round["selected_theme_id"], $score, $data_round["score2"], 1, 
 	    										 $data_round["end2"]);
 	    							$round->update($data_duel["current_round_id"]);
-	    							if ($data_round["end2"] == true)
+	    							if ($data_round["end2"] == 1)
 	    							{
 	    								$duel->set_current_round_id(2);
 	    								$duel->set_current_round_number($data_duel["current_round_number"] + 1);
@@ -70,9 +70,9 @@
     							{
 	    							$round->init($data_round["chosen_theme1_id"], $data_round["chosen_theme2_id"], $data_round["collection_id"],
 	    										 $data_round["selected_theme_id"], $data_round["score1"], $score, $data_round["end1"], 
-	    										 true);
+	    										 1);
 	    							$round->update($data_duel["current_round_id"]);
-	    							if ($data_round["end1"] == true)
+	    							if ($data_round["end1"] == 1)
 	    							{
 	    								$duel->set_current_round_id(2);
 	    								$duel->set_current_round_number($data_duel["current_round_number"] + 1);

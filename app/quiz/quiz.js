@@ -16,7 +16,7 @@ angular.module('coq')
         $scope.score = 0;
         $scope.answers = Array;
         $scope.nbDuelList = 0;
-        $scope.idDuel = $stateParams.idDuelClicked;
+
         var config;
 
 		config = {
@@ -40,6 +40,7 @@ angular.module('coq')
                 duel: id
 	            }
 	        };
+	        $scope.duelId = id;
 	        $http.post("app/php/getDuel.php", null, config)
 	            .success(function (data, status, headers, config) {
 	           	 	$scope.duel = data;
@@ -87,11 +88,17 @@ angular.module('coq')
 	            if($scope.numCurrentQuestion == 5) {
 	            	document.getElementById('quizzgame').innerHTML = '<h2>Série terminée</h2><br/>';
 	            	$scope.numCurrentQuestion = 0;
+
+	            	endSerie('1', $scope.duelId, $scope.score);
 	            }
 	            else {
 	            	shuffleAnswers();
 	            }
             }         
+        }
+
+        function endSerie(userId, duelId, score) {
+        	
         }
 
     });
