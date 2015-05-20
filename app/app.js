@@ -16,6 +16,7 @@ angular
 	.config(function($stateProvider, $urlRouterProvider) {
 
 		$urlRouterProvider.when('/dashboard', '/dashboard/overview');
+		$urlRouterProvider.when('/quiz', '/quiz/overview');
 		$urlRouterProvider.otherwise('/login');
 
 		$stateProvider
