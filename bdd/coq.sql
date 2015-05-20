@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 20 Mai 2015 à 11:54
+-- Généré le :  Mer 20 Mai 2015 à 18:44
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.5.8
 
@@ -31,14 +31,15 @@ CREATE TABLE IF NOT EXISTS `coq_collection` (
   `title` varchar(20) NOT NULL COMMENT 'Titre de la série',
   `difficulty` int(11) NOT NULL COMMENT 'Niveau de difficulté (1 facile, 2 moyen, 3 difficile)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `coq_collection`
 --
 
 INSERT INTO `coq_collection` (`id`, `title`, `difficulty`) VALUES
-(1, 'dscd', 1);
+(1, 'dscd', 1),
+(2, 'Les mangas !', 2);
 
 -- --------------------------------------------------------
 
@@ -51,6 +52,14 @@ CREATE TABLE IF NOT EXISTS `coq_config` (
   `val` varchar(20) NOT NULL,
   UNIQUE KEY `key_2` (`key_2`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `coq_config`
+--
+
+INSERT INTO `coq_config` (`key_2`, `val`) VALUES
+('nb_question_collecti', '5'),
+('nb_round_duel', '3');
 
 -- --------------------------------------------------------
 
@@ -78,8 +87,7 @@ CREATE TABLE IF NOT EXISTS `coq_duel` (
 --
 
 INSERT INTO `coq_duel` (`id`, `user1_id`, `user2_id`, `current_round_id`, `current_round_number`, `score1`, `score2`) VALUES
-(1, 1, 2, 1, 1, 0, 0),
-(2, 1, 3, 1, 2, 1, 2);
+(1, 1, 2, 2, 2, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -97,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `coq_question` (
   `answerOK` varchar(255) NOT NULL COMMENT 'La bonne réponse',
   PRIMARY KEY (`id`),
   KEY `question_id` (`theme_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Contenu de la table `coq_question`
@@ -105,10 +113,18 @@ CREATE TABLE IF NOT EXISTS `coq_question` (
 
 INSERT INTO `coq_question` (`id`, `theme_id`, `val`, `answer1`, `answer2`, `answer3`, `answerOK`) VALUES
 (0, 1, 'Est ce que Seb sait jouer Ã  Xenoverse', 'Oui', 'Non', 'Peut Ãªtre', 'TG'),
+(1, 3, 'Que joue Linkin Park ?', 'Rap', 'Varietoche', 'Techno', 'Metal'),
+(2, 3, 'Qui est Bob Marley ?', 'Le gouverneur de Californie', 'Un robot qui veut detruire le monde', 'Un rappeur', 'Un fumeur de weed'),
+(3, 3, 'Quel morceau n''est pas de Michael Jackson ?', 'Beat it', 'They don''t care about us', 'The song of the earth', 'Viens foutre la merde negro'),
+(4, 3, 'Qui n''aurait jamais du faire de la musique ?', 'Michael Jackson', 'Daft Punk', 'Booba', 'Florant Pagnigni'),
+(5, 3, 'Quel est le sens de la vie, de l''univers, et tout le reste ?', 'La biere', 'La reponse D', 'Euh, quoi ?', '42'),
 (7, 1, 'lollolol', 'l', 'o', 'l', 'o'),
 (8, 2, 'fdvg', 'v', 'ffd', 'd', 'f'),
-(9, 1, 'fvf', 'vfv', 'vfd', 'vf', 'v'),
-(10, 1, 'fvdfv', 'vff', 'vf', 'fv', 'fv');
+(9, 4, 'Quel est le vrai nom de Sangoku ?', 'Raradis', 'Coucourget', 'Nanavet', 'Kakarot'),
+(10, 4, 'Quel type de combattant est Naruto ?', 'Samouraï', 'Espion', 'Assassin', 'Ninja'),
+(11, 4, 'Quel est le surnom de Luffy dans One Piece ?', 'Eichiro', 'Kurosaki', 'Pikachu', 'Mugiwara'),
+(12, 4, 'Quel âge à Onizuka Eikichi dans GTO ?', '19 ans', '20 ans', '21 ans', '22 ans'),
+(13, 4, 'De quel auteur s''inspire Zetsuen No Tempest ?', 'Molière', 'Booba', 'Socrate', 'Shaekspeare');
 
 -- --------------------------------------------------------
 
@@ -124,17 +140,23 @@ CREATE TABLE IF NOT EXISTS `coq_question_collection` (
   KEY `collection_id` (`question_id`),
   KEY `collection_id_2` (`collection_id`),
   KEY `question_id` (`question_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table d''association question / série' AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table d''association question / série' AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `coq_question_collection`
 --
 
 INSERT INTO `coq_question_collection` (`id`, `question_id`, `collection_id`) VALUES
-(1, 0, 1),
-(2, 7, 1),
-(3, 9, 1),
-(4, 10, 1);
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 1),
+(5, 5, 1),
+(6, 9, 2),
+(7, 10, 2),
+(8, 11, 2),
+(9, 12, 2),
+(10, 13, 2);
 
 -- --------------------------------------------------------
 
@@ -158,14 +180,15 @@ CREATE TABLE IF NOT EXISTS `coq_round` (
   KEY `collection_id` (`collection_id`),
   KEY `selected_theme_id` (`selected_theme_id`),
   KEY `selected_theme_id_2` (`selected_theme_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `coq_round`
 --
 
 INSERT INTO `coq_round` (`id`, `chosen_theme1_id`, `chosen_theme2_id`, `collection_id`, `selected_theme_id`, `score1`, `score2`, `end1`, `end2`) VALUES
-(1, 1, 1, 1, 1, 0, 0, 0, 0);
+(1, 3, 3, 1, 3, 4, 2, 1, 1),
+(2, 4, 4, 2, 4, 5, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -177,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `coq_theme` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `val` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `coq_theme`
@@ -185,7 +208,9 @@ CREATE TABLE IF NOT EXISTS `coq_theme` (
 
 INSERT INTO `coq_theme` (`id`, `val`) VALUES
 (1, 'General'),
-(2, 'DBZ');
+(2, 'DBZ'),
+(3, 'Musique'),
+(4, 'Mangas');
 
 -- --------------------------------------------------------
 
@@ -202,16 +227,18 @@ CREATE TABLE IF NOT EXISTS `coq_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pseudo` (`pseudo`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `coq_user`
 --
 
 INSERT INTO `coq_user` (`id`, `login`, `pwd`, `pseudo`, `rights`) VALUES
-(1, 'lol', 'l', 'lll', 1),
-(2, 'c,sdc', 'd', 'dfdf', 0),
-(3, 'dfgdsf', 'fg', 'g', 1);
+(1, 'seb@seb.fr', 'azerty', 'Seb', 0),
+(2, 'tim@tim.fr', 'azerty', 'Timo', 0),
+(3, 'jo@jo.fr', 'azerty', 'Jojo', 0),
+(4, 'os@os.fr', 'azerty', 'Osvaldo', 0),
+(5, 're@re.fr', 'azerty', 'Renan', 0);
 
 --
 -- Contraintes pour les tables exportées

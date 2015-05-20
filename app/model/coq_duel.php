@@ -113,8 +113,9 @@ class  coq_duel
 			current_round_id = "'.$this->current_round_id.'",
 			current_round_number = "'.$this->current_round_number.'", 
 			score1 = "'.$this->score1.'",
-			score1 = "'.$this->score2.'"
+			score2 = "'.$this->score2.'"
 		WHERE id ='.$id;
+		echo("</br>". $rqt);
 		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}

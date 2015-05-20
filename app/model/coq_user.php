@@ -159,6 +159,15 @@ class  coq_user
 		else return 0;
 	}
 
+	public function find_login($email, $password)
+	{
+		$rqt = "SELECT * FROM coq_user WHERE login = '".$email."' AND pwd = '".$password."'";
+		$this->pdo = initPDOObject();
+		$data = $this->pdo->request($rqt, $error);
+		if (count($data) > 0) return $data[0];
+		else return NULL;
+	}
+
 	public function JSON ()
 	{
 		return json_encode(array("id" => $this->id, "login" => $this->login, "password" => $this->pwd, "pseudo" => $this->pseudo, "rights" => $this->rights));
