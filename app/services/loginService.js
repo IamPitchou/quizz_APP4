@@ -5,7 +5,8 @@ app.factory('loginService',function($http, $location, sessionService){
             var $promise=$http.post('app/php/connect.php', data); //send data to user.php
             $promise.then(function(msg){
                 var uid=msg.data;
-                if(uid){
+                //alert(uid);
+                if ( uid ) {
                     //scope.msgtxt='Correct information';
                     sessionService.set('uid',uid);
                     $location.path('/dashboard');
