@@ -22,12 +22,12 @@
                     <tbody>
 
                     </tbody>
-                    <tr ng-repeat="user in userList">
+                    <tr ng-repeat="duel in duelList">
                         <td>Alain Deloin</td>
-                        <td>{{ user.score1 }}</td>
-                        <td class="text-center">Round {{ user.round }}</td>
-                        <td class="text-right">{{ user.score2 }}</td>
-                        <td class="text-right"><a ui-sref="game">{{ user.name }}</a></td>
+                        <td>{{ duel.score1 }}</td>
+                        <td class="text-center">Round {{ duel.round }}</td>
+                        <td class="text-right">{{ duel.score2 }}</td>
+                        <td class="text-right"><a ui-sref="game">{{ duel.name }}</a></td>
                     </tr>
                 </table>
             </div>
