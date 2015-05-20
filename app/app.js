@@ -53,7 +53,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'app/views/dashboard/reports.html'
         })
         .state('d_account', {
-            url: '/overview',
+            url: '/account',
             parent: 'dashboard',
             templateUrl: 'app/views/dashboard/account.html'
         })
