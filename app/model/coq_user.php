@@ -9,7 +9,7 @@ class  coq_user
 	private $pseudo;
 	private $rights;
 
-	public function coq_user($login, $pwd, $pseudo, $rights)
+	public function init($login, $pwd, $pseudo, $rights)
 	{ 
 		$this->login = $login;
 		$this->pwd = $pwd;
@@ -107,7 +107,30 @@ class  coq_user
 	public function list_()
 	{
 		$rqt = "SELECT * FROM coq_user";
+		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
+	}
+
+	public function get_duels_of_user ($id_user)
+	{
+		$rqt = "SELECT cu1.`pseudo` as pseudo1, cu2.`pseudo` as pseudo2, cd.`score1`, cd.`score2` 
+			    FROM coq_duel as cd, coq_user as cu1, coq_user as cu2 
+			    WHERE cu1.`id` = ".$id_user." AND `user1_id` = cu1.`id` AND `user2_id` = cu2.`id` 
+			   	  OR cu2.`id` = ".$id_user." AND `user2_id` = cu2.`id` AND `user1_id` = cu1.`id`";
+		$this->pdo = initPDOObject();
+		$answ = $this->pdo->request($rqt, $error);
+		if (count($answ) > 0) return $answ;
+		else return 0;   	  
+	}
+	public function get_pseudo_req ($id_user)
+	{
+		$rqt = "SELECT pseudo
+				FROM coq_user as cu 
+				WHERE cu.id = ".$id_user."";
+		$this->pdo = initPDOObject();
+		$answ = $this->pdo->request($rqt, $error);
+		if (count($answ) > 0) return $answ;
+		else return 0;   
 	}
 
 	public function find($id)

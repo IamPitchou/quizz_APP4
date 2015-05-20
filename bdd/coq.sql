@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 20 Mai 2015 à 09:41
+-- Généré le :  Mer 20 Mai 2015 à 11:54
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.5.8
 
@@ -71,14 +71,15 @@ CREATE TABLE IF NOT EXISTS `coq_duel` (
   KEY `COQ_Dual_FKIndex1` (`user1_id`),
   KEY `COQ_Dual_FKIndex2` (`user2_id`),
   KEY `FK_DUEL__ROUND` (`current_round_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Les duels' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Les duels' AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `coq_duel`
 --
 
 INSERT INTO `coq_duel` (`id`, `user1_id`, `user2_id`, `current_round_id`, `current_round_number`, `score1`, `score2`) VALUES
-(1, 1, 2, 1, 1, 0, 0);
+(1, 1, 2, 1, 1, 0, 0),
+(2, 1, 3, 1, 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -201,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `coq_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pseudo` (`pseudo`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `coq_user`
@@ -209,7 +210,8 @@ CREATE TABLE IF NOT EXISTS `coq_user` (
 
 INSERT INTO `coq_user` (`id`, `login`, `pwd`, `pseudo`, `rights`) VALUES
 (1, 'lol', 'l', 'lll', 1),
-(2, 'c,sdc', 'd', 'dfdf', 0);
+(2, 'c,sdc', 'd', 'dfdf', 0),
+(3, 'dfgdsf', 'fg', 'g', 1);
 
 --
 -- Contraintes pour les tables exportées
