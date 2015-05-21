@@ -149,6 +149,16 @@ class  coq_user
 		if (count($answ) > 0) return $answ;
 		else return 0;   
 	}
+	public function get_AllUsers ($id_user)
+	{
+		$rqt = "SELECT id, pseudo
+				FROM coq_user
+				WHERE id <> ".$id_user."";
+		$this->pdo = initPDOObject();
+		$answ = $this->pdo->request($rqt, $error);
+		if (count($answ) > 0) return $answ;
+		else return 0;   		
+	}
 
 	public function find($id)
 	{
