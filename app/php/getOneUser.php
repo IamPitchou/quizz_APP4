@@ -16,10 +16,10 @@
 
             $user->init
             (
-                data['login'],
-                data['pwd'],
-                data['pseudo'],
-                data['rights']
+                $data['login'],
+                $data['pwd'],
+                $data['pseudo'],
+                $data['rights']
             );
 
             echo $user->JSON();

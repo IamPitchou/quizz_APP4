@@ -1,14 +1,30 @@
 <div>
-	<a ui-sref="d_overview" class="pull-right btn btn-primary btn-outline btn-rounded">Back to Overview</a>
-	<h2>Reports <small>Work with Chart.js and D3</small></h2>
-	<span class="glyphicon glyphicon-dashboard bg-fade"></span>
+	<a ui-sref="game" class="pull-right btn btn-primary btn-outline btn-rounded">Let's play</a>
+	<h2>Quiz - Chercher joueur</h2>
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Add Charts here</h1>
-			<p>You can use C3.js or Chart.js</p>
-			<p>
-				<a class="btn btn-primary btn-lg btn-outline btn-rounded">Learn more</a>
-			</p>
-		</div>
+			<h1>Liste des joueurs</h1>
+			<br/>
+			Cliquez sur l'un des joueurs pour le provoquer en duel
+			<br /><br />
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Joueur</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                    <tr ng-repeat="user in userList">
+                        <td>{{ user.pseudo }}</td>
+                        <td class="text-center"><a onclick ng-click="declareDuel(userId, user.id)" ui-sref="q_overview">Defier !</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 	</div>
 </div>

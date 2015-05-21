@@ -20,7 +20,7 @@
                 echo ("Unable to find the last round id");
             else
             {
-                $duel->init($user1_id, $user2_id, $id_round,  0, 0, 0);
+                $duel->init($user1_id, $user2_id, $id_round,  1, 0, 0);
                 $duel->add();
                 $id_duel = $duel->get_last_duel_created();
                 if ($id_duel < 1)

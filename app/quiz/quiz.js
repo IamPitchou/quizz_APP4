@@ -8,7 +8,7 @@
  * Controller of coq
  */
 angular.module('coq')
-    .controller('QuizCtrl', function($scope, $state, $http, $stateParams) {
+    .controller('QuizCtrl', function($scope, $state, $http, $stateParams, sessionService) {
 
         $scope.$state = $state;
 
@@ -22,21 +22,59 @@ angular.module('coq')
 
         $scope.errorMessage;
 
-        $scope.userId = '1';
+        $scope.userId = sessionService.get('uid');
+
+     	$scope.me_login;
+     	$scope.me_pseudo;
 
         var config;
 
-		config = {
+        config = {
+	            params: {
+	                user: $scope.userId,
+	            }
+	        };
+        $http.post("app/php/getOneUser.php", null, config)
+	            .success(function (data, status, headers, config) {
+	           	 	$scope.me_pseudo = data.pseudo;
+	           	 	$scope.me_login = data.login;
+	            })
+	            .error(function (data, status, headers, config)
+	            {
+	                $scope.errorMessage = "SUBMIT ERROR";
+	            });
+
+        $scope.showDuelList = function() {
+			config = {
+	            params: {
+	                user: $scope.userId,
+	                duel: 0,
+	                score: 0
+	            }
+	        };
+	        $http.post("app/php/getAllDuelsOfUser.php", null, config)
+	            .success(function (data, status, headers, config) {
+	           	 	$scope.duelList = data.duels;
+	           	 	$scope.nbDuelList = data.duels.length;
+	            })
+	            .error(function (data, status, headers, config)
+	            {
+	                $scope.errorMessage = "SUBMIT ERROR";
+	            });
+        }
+
+        $scope.showDuelList();
+
+        config = {
             params: {
                 user: $scope.userId,
                 duel: 0,
                 score: 0
             }
         };
-        $http.post("app/php/getAllDuelsOfUser.php", null, config)
+        $http.post("app/php/getAllUsers.php", null, config)
             .success(function (data, status, headers, config) {
-           	 	$scope.duelList = data.duels;
-           	 	$scope.nbDuelList = data.duels.length;
+           	 	$scope.userList = data.users;
             })
             .error(function (data, status, headers, config)
             {
@@ -82,6 +120,23 @@ angular.module('coq')
 	            .error(function (data, status, headers, config)
 	            {
 	                $scope.errorMessage = "SUBMIT ERROR";
+	            });
+		}
+
+		$scope.declareDuel = function(user1, user2) {
+			config = {
+	            params: {
+	                user1: user1,
+	                user2: user2,
+		           }
+	        };
+        	$http.post("app/php/createDuel.php", null, config)
+	            .success(function () {
+	            	$scope.showDuelList();
+	            })
+	            .error(function (data, status, headers, config)
+	            {
+	               $scope.errorMessage = "SUBMIT ERROR";
 	            });
 		}
 
@@ -157,12 +212,12 @@ angular.module('coq')
 	            $scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
 
 	            if($scope.numCurrentQuestion == 5) {
-	            	if(duelFinished($scope.duelId) == '1') {
+	            	/*if(duelFinished($scope.duelId) == '1') {
 	            		document.getElementById('quizzgame').innerHTML = '<h2>Duel terminée</h2><br/>';
 	            	}
-	            	else {
+	            	else {*/
 	            		document.getElementById('quizzgame').innerHTML = '<h2>Série terminée</h2><br/>';
-	            	}
+	            	//}
 	            	$scope.numCurrentQuestion = 0;
 	            	document.getElementById('loader').style.display = 'none';
 					document.getElementById('border').style.display = 'none';
