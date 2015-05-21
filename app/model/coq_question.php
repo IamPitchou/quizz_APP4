@@ -145,7 +145,8 @@ class  coq_question
 
 	public function get_question_by_theme($theme_id)
 	{
-		$rqt = "SELECT * FROM coq_question WHERE theme_id = ".$theme_id;
+		$rqt = "SELECT ct.val as theme, cq.val as question, cq.answer1, cq.answer2, cq.answer3, cq.answerOK 
+				FROM coq_question as cq, coq_theme as ct WHERE theme_id = ".$theme_id;
 		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
