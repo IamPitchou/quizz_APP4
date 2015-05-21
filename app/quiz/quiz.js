@@ -33,7 +33,7 @@ angular.module('coq')
 	            params: {
 	                user: $scope.userId,
 	            }
-	        };
+	        }; 
         $http.post("app/php/getOneUser.php", null, config)
 	            .success(function (data, status, headers, config) {
 	           	 	$scope.me_pseudo = data.pseudo;
