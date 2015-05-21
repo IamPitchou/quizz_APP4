@@ -20,6 +20,8 @@ angular.module('coq')
         $scope.timer = 0;
         $scope.timeout;
 
+        $scope.errorMessage;
+
         $scope.userId = '1';
 
         var config;
@@ -38,40 +40,49 @@ angular.module('coq')
             })
             .error(function (data, status, headers, config)
             {
-                $scope[errorMessage] = "SUBMIT ERROR";
+                $scope.errorMessage = "SUBMIT ERROR";
             });
 
         $scope.showDuel = function(id) {
-        	//duelFinished(id);
-
-			config = {
+        	config = {
 	            params: {
-	                duel: id
+	                duel: id,
 		           }
 	        };
-	        $scope.duelId = id;
-	        $http.post("app/php/getDuel.php", null, config)
-	            .success(function (data, status, headers, config) {
-	           	 	$scope.duel = data;
-					$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
-					//document.getElementById('load_spinner').style.display = 'none';
-					shuffleAnswers();
-					startTimer();
+        	$http.post("app/php/duelIsFinishedOrNot.php", null, config)
+	            .success(function (data) {
+	            	if(data == '1') {
+	            		document.getElementById('quizzgame').innerHTML = '<h2>Duel terminé</h2><br/>';
+	            	}
+	            	else {
+	            		$scope.duelId = id;
+				        $http.post("app/php/getDuel.php", null, config)
+				            .success(function (data, status, headers, config) {
+				           	 	$scope.duel = data;
+								$scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
+								//document.getElementById('load_spinner').style.display = 'none';
+								shuffleAnswers();
+								startTimer();
+				            })
+				            .error(function (data, status, headers, config)
+				            {
+				                $scope.errorMessage = "SUBMIT ERROR";
+				            });
+
+				        $http.post("app/php/getScoreTotalDuel.php", null, config)
+				            .success(function (data, status, headers, config) {
+				           	 	$scope.scoreTotalDuel = data;
+				            })
+				            .error(function (data, status, headers, config)
+				            {
+				                $scope.errorMessage = "SUBMIT ERROR";
+				            });
+	            	}
 	            })
 	            .error(function (data, status, headers, config)
 	            {
-	                $scope[errorMessage] = "SUBMIT ERROR";
+	                $scope.errorMessage = "SUBMIT ERROR";
 	            });
-
-	        $http.post("app/php/getScoreTotalDuel.php", null, config)
-	            .success(function (data, status, headers, config) {
-	           	 	$scope.scoreTotalDuel = data;
-	            })
-	            .error(function (data, status, headers, config)
-	            {
-	                $scope[errorMessage] = "SUBMIT ERROR";
-	            });
-
 		}
 
 		function startTimer() {
@@ -80,7 +91,7 @@ angular.module('coq')
 			var loader = document.getElementById('loader')
 			  , border = document.getElementById('border')
 			  , pi = Math.PI
-			  , t = 1;
+			  , t = 30;
 
 			(function draw() {
 			  $scope.timer ++;
@@ -146,7 +157,12 @@ angular.module('coq')
 	            $scope.currentQuestion = $scope.duel.round.collection.questions[$scope.numCurrentQuestion];
 
 	            if($scope.numCurrentQuestion == 5) {
-	            	document.getElementById('quizzgame').innerHTML = '<h2>Série terminée</h2><br/>';
+	            	if(duelFinished($scope.duelId) == '1') {
+	            		document.getElementById('quizzgame').innerHTML = '<h2>Duel terminée</h2><br/>';
+	            	}
+	            	else {
+	            		document.getElementById('quizzgame').innerHTML = '<h2>Série terminée</h2><br/>';
+	            	}
 	            	$scope.numCurrentQuestion = 0;
 	            	document.getElementById('loader').style.display = 'none';
 					document.getElementById('border').style.display = 'none';
@@ -175,29 +191,8 @@ angular.module('coq')
 	            })
 	            .error(function (data, status, headers, config)
 	            {
-	                $scope[errorMessage] = "SUBMIT ERROR";
+	               $scope.errorMessage = "SUBMIT ERROR";
 	            });
         }
-
-        function duelFinished(duelId) {
-			config = {
-	            params: {
-	                duel: duelId,
-		           }
-	        };
-        	$http.post("app/php/duelIsFinishedOrNot.php", null, config)
-	            .success(function (data) {
-	            	if(data == '1') {
-	            		return true;
-	            	}
-	            	else {
-	            		return false;
-	            	}
-	            })
-	            .error(function (data, status, headers, config)
-	            {
-	                $scope[errorMessage] = "SUBMIT ERROR";
-	            });
-		}
 
     });
