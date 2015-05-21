@@ -1,5 +1,6 @@
 <?php
     include_once("../model/coq_duel.php");
+    include_once("../model/coq_config.php");
     $id_duel = htmlspecialchars($_GET["duel"]);
     if (!checkVar($id_duel))
         echo ('Error unable to find the duel');
