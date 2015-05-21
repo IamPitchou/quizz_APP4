@@ -36,6 +36,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'app/views/login.html',
             controller: 'LoginCtrl'
         })
+        .state('register', {
+            url: '/register',
+            parent: 'base',
+            templateUrl: 'app/views/register.html',
+            controller: 'RegisterCtrl'
+        })
         .state('dashboard', {
             url: '/dashboard',
             parent: 'base-menu',
