@@ -16,7 +16,7 @@
         else
         {
             foreach ($data as $d) 
-                ($pseudo_ref == $d["pseudo1"]) ? $arr_users[] = array("name" => $d["pseudo2"], "score1" => $d["total_score1"], "score2" => $d["total_score2"]) : $arr_users[] = array("name" => $d["pseudo1"], "score1" => $d["total_score1"], "score2" => $d["total_score2"]);
+                ($pseudo_ref == $d["pseudo1"]) ? $arr_users[] = array("name" => $d["pseudo2"], "score1" => $d["score1"], "score2" => $d["score2"]) : $arr_users[] = array("name" => $d["pseudo1"], "score1" => $d["score1"], "score2" => $d["score2"]);
                 
             $arr = array("users" => $arr_users);
        

@@ -16,7 +16,7 @@
 	        foreach ($data as $d) 
 	        {
 	        	$arr_data[] = array("id" => $d["id"], "name" => $d["pseudo"], 
-	        						"score1" => $d["total_score1"], "score2" => $d["total_score2"], 
+	        						"score1" => $d["score1"], "score2" => $d["score2"], 
 	        						"current_round_number" => $d["current_round_number"]);
 	        }
 	        $arr = array("duels" => $arr_data);
