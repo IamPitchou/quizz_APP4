@@ -53,11 +53,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
             parent: 'dashboard',
             templateUrl: 'app/views/dashboard/overview.html'
         })
-        .state('reports', {
-            url: '/reports',
-            parent: 'dashboard',
-            templateUrl: 'app/views/dashboard/reports.html'
-        })
         .state('d_account', {
             url: '/account',
             parent: 'dashboard',
@@ -73,6 +68,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/overview',
             parent: 'quiz',
             templateUrl: 'app/views/quiz/overview.html'
+        })
+        .state('lookingForPlayer', {
+            url: '/lookingForPlayer',
+            parent: 'quiz',
+            templateUrl: 'app/views/quiz/lookingForPlayer.html'
         })
         .state('game', {
             url: '/game',
