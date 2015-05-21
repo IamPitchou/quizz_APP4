@@ -27,7 +27,7 @@
                         <td>{{ duel.score1 }}</td>
                         <td class="text-center">Round {{ duel.current_round_number }}</td>
                         <td class="text-right">{{ duel.score2 }}</td>
-                        <td class="text-right"><a onclick ng-click="showDuel(duel.id)" ui-sref="game({idDuelClicked: '1'})">{{ duel.name }}</a></td>
+                        <td class="text-right"><a onclick ng-click="showDuel(duel.id)" ui-sref="game({idDuelClicked: duel.id})">{{ duel.name }}</a></td>
                     </tr>
                 </table>
             </div>
