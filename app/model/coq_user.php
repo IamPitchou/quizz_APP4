@@ -112,10 +112,10 @@ class  coq_user
 
 	public function get_duels_of_user ($id_user)
 	{
-		$rqt = "SELECT cu1.`pseudo` as pseudo1, cu2.`pseudo` as pseudo2, cd.`score1`, cd.`score2` 
+		$rqt = "SELECT cu1.pseudo as pseudo1, cu2.pseudo as pseudo2, cd.total_score1, cd.total_score2 
 			    FROM coq_duel as cd, coq_user as cu1, coq_user as cu2 
-			    WHERE cu1.`id` = ".$id_user." AND `user1_id` = cu1.`id` AND `user2_id` = cu2.`id` 
-			   	  OR cu2.`id` = ".$id_user." AND `user2_id` = cu2.`id` AND `user1_id` = cu1.`id`";
+			    WHERE cu1.id = ".$id_user." AND user1_id = cu1.id AND user2_id = cu2.id 
+			   	  OR cu2.id = ".$id_user." AND user2_id = cu2.id AND user1_id = cu1.id";
 		$this->pdo = initPDOObject();
 		$answ = $this->pdo->request($rqt, $error);
 		if (count($answ) > 0) return $answ;
@@ -133,7 +133,7 @@ class  coq_user
 	}
 	public function get_allDuelsOfUser($id_user)
 	{
-		$rqt = "SELECT cd.id, cu2.pseudo, cd.score1, cd.score2, cd.current_round_number
+		$rqt = "SELECT cd.id, cu2.pseudo, cd.total_score1, cd.total_score2, cd.current_round_number
 				FROM coq_duel as cd, coq_user as cu1, coq_user as cu2
 				WHERE cd.user1_id = ".$id_user." 
 				AND cd.user1_id = cu1.id
