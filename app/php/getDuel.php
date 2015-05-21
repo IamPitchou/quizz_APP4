@@ -24,12 +24,12 @@
             {
                 foreach ($data as $d) 
                 {
-                    $arr_data_qestion[] = array("val" => $d["question"], "answer1" => $d["answer1"], "answer2" => $d["answer2"], 
-                                                   "answer3" => $d["answer3"], "answerOK" => $d["answerOK"]);
+                    $arr_data_qestion[] = array("val" => htmlspecialchars($d["question"]), "answer1" => htmlspecialchars($d["answer1"]), "answer2" => htmlspecialchars($d["answer2"]), 
+                                                   "answer3" => htmlspecialchars($d["answer3"]), "answerOK" => htmlspecialchars($d["answerOK"]));
                 }
-                $arr = array("user1" => $data[0]["pseudo1"], "user2" => $data[0]["pseudo2"], 
-                             "current_round_number" => $data[0]["current_round_number"], "round" => array("score1" => $data[0]["score1"], 
-                             "score2" => $data[0]["score2"], "collection" => array("theme" => $data[0]["theme"], 
+                $arr = array("user1" => htmlspecialchars($data[0]["pseudo1"]), "user2" => htmlspecialchars($data[0]["pseudo2"]), 
+                             "current_round_number" => htmlspecialchars($data[0]["current_round_number"]), "round" => array("score1" => $data[0]["score1"], 
+                             "score2" => $data[0]["score2"], "collection" => array("theme" => htmlspecialchars($data[0]["theme"]), 
                              "questions" => $arr_data_qestion)));
                 echo (json_encode($arr));
             }

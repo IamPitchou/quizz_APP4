@@ -42,6 +42,8 @@ angular.module('coq')
             });
 
         $scope.showDuel = function(id) {
+        	//duelFinished(id);
+
 			config = {
 	            params: {
 	                duel: id
@@ -108,8 +110,7 @@ angular.module('coq')
 	            	endSerie($scope.userId, $scope.duelId, $scope.score);
 			  	}*/
 
-			  	$http.get(".")
-	            .success(function (data) {
+			  	$http.get(".").success(function (data) {
 	           	 	$scope.valider(0);
 	            })
 
@@ -149,6 +150,7 @@ angular.module('coq')
 	            	$scope.numCurrentQuestion = 0;
 	            	document.getElementById('loader').style.display = 'none';
 					document.getElementById('border').style.display = 'none';
+
 	            	endSerie($scope.userId, $scope.duelId, $scope.score);
 	            }
 	            else {
@@ -166,14 +168,36 @@ angular.module('coq')
 	                score: score
 		           }
 	        };
-	        //alert(userId+" "+duelId+" "+score);
+	        console.log(userId+" "+duelId+" "+score);
         	$http.post("app/php/submitRound.php", null, config)
 	            .success(function () {
+	            	console.log('success');
 	            })
 	            .error(function (data, status, headers, config)
 	            {
 	                $scope[errorMessage] = "SUBMIT ERROR";
 	            });
         }
+
+        function duelFinished(duelId) {
+			config = {
+	            params: {
+	                duel: duelId,
+		           }
+	        };
+        	$http.post("app/php/duelIsFinishedOrNot.php", null, config)
+	            .success(function (data) {
+	            	if(data == '1') {
+	            		return true;
+	            	}
+	            	else {
+	            		return false;
+	            	}
+	            })
+	            .error(function (data, status, headers, config)
+	            {
+	                $scope[errorMessage] = "SUBMIT ERROR";
+	            });
+		}
 
     });

@@ -12,9 +12,9 @@
         else
         {
             if ($data["end1"] == 1 && $data["end2"] == 1)
-                return 1;
+                echo '1';
             else
-                return 0;
+                echo '0';
         }
        
     }
