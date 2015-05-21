@@ -115,7 +115,6 @@ class  coq_duel
 			score1 = "'.$this->score1.'",
 			score2 = "'.$this->score2.'"
 		WHERE id ='.$id;
-		echo("</br>". $rqt);
 		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
 	}
