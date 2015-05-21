@@ -83,6 +83,16 @@ class  coq_collection
 		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
+	public function get_collection_by_theme ()
+	{
+		$rqt =	"SELECT distinct cc.id,  cc.title, cc.difficulty, ct.val
+				FROM coq_collection as cc, coq_question_collection as cqc, coq_question as cq, coq_theme as ct
+				WHERE cc.id = cqc.collection_id
+				AND cqc.question_id = cq.id
+				AND cq.theme_id = ct.id";
+		$this->pdo = initPDOObject();
+		return $this->pdo->request($rqt, $error);
+	}
 
 	public function find($id)
 	{
