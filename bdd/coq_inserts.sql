@@ -12,6 +12,7 @@
 -- Export de données de la table coq.coq_collection: ~3 rows (environ)
 /*!40000 ALTER TABLE `coq_collection` DISABLE KEYS */;
 INSERT IGNORE INTO `coq_collection` (`id`, `title`, `difficulty`) VALUES
+	(1, 'dscd', 1),
 	(2, 'Les mangas !', 2),
 	(3, 'Infooo', 3);
 /*!40000 ALTER TABLE `coq_collection` ENABLE KEYS */;
@@ -19,14 +20,13 @@ INSERT IGNORE INTO `coq_collection` (`id`, `title`, `difficulty`) VALUES
 -- Export de données de la table coq.coq_config: ~2 rows (environ)
 /*!40000 ALTER TABLE `coq_config` DISABLE KEYS */;
 INSERT IGNORE INTO `coq_config` (`key_2`, `val`) VALUES
-	('nb_question_collection', '5'),
+	('nb_question_collecti', '5'),
 	('nb_round_duel', '3');
-	('timeout_question', '10')
 /*!40000 ALTER TABLE `coq_config` ENABLE KEYS */;
 
 -- Export de données de la table coq.coq_duel: ~1 rows (environ)
 /*!40000 ALTER TABLE `coq_duel` DISABLE KEYS */;
-INSERT IGNORE INTO `coq_duel` (`id`, `user1_id`, `user2_id`, `current_round_id`, `current_round_number`, `total_score1`, `total_score2`) VALUES
+INSERT IGNORE INTO `coq_duel` (`id`, `user1_id`, `user2_id`, `current_round_id`, `current_round_number`, `score1`, `score2`) VALUES
 	(1, 1, 2, 1, 1, 26, 0);
 /*!40000 ALTER TABLE `coq_duel` ENABLE KEYS */;
 
@@ -39,6 +39,8 @@ INSERT IGNORE INTO `coq_question` (`id`, `theme_id`, `val`, `answer1`, `answer2`
 	(3, 3, 'Quel morceau n\'est pas de Michael Jackson ?', 'Beat it', 'They don\'t care about us', 'The song of the earth', 'Viens foutre la merde negro'),
 	(4, 3, 'Qui n\'aurait jamais du faire de la musique ?', 'Michael Jackson', 'Daft Punk', 'Booba', 'Florant Pagnigni'),
 	(5, 3, 'Quel est le sens de la vie, de l\'univers, et tout le reste ?', 'La biere', 'La reponse D', 'Euh, quoi ?', '42'),
+	(7, 1, 'lollolol', 'l', 'o', 'l', 'o'),
+	(8, 2, 'fdvg', 'v', 'ffd', 'd', 'f'),
 	(9, 4, 'Quel est le vrai nom de Sangoku ?', 'Raradis', 'Coucourget', 'Nanavet', 'Kakarot'),
 	(10, 4, 'Quel type de combattant est Naruto ?', 'Samourai', 'Espion', 'Assassin', 'Ninja'),
 	(11, 4, 'Quel est le surnom de Luffy dans One Piece ?', 'Eichiro', 'Kurosaki', 'Pikachu', 'Mugiwara'),
@@ -73,7 +75,7 @@ INSERT IGNORE INTO `coq_question_collection` (`id`, `question_id`, `collection_i
 
 -- Export de données de la table coq.coq_round: ~3 rows (environ)
 /*!40000 ALTER TABLE `coq_round` DISABLE KEYS */;
-INSERT IGNORE INTO `coq_round` (`id`, `chosen_theme1_id`, `chosen_theme2_id`, `collection_id`, `selected_theme_id`, `round_score1`, `round_score2`, `end1`, `end2`) VALUES
+INSERT IGNORE INTO `coq_round` (`id`, `chosen_theme1_id`, `chosen_theme2_id`, `collection_id`, `selected_theme_id`, `score1`, `score2`, `end1`, `end2`) VALUES
 	(1, 3, 3, 1, 3, 1, 0, 1, 0),
 	(2, 4, 4, 2, 4, 1, 0, 0, 0),
 	(3, 5, 5, 3, 5, 0, 0, 0, 0);
