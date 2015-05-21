@@ -14,7 +14,7 @@
     		echo ('Error unable to find the user');
     	else
     	{
-    		if (!checkVar($score))
+    		if (!empty($score))
     			echo('Error unable to find the score');
     		else
     		{
@@ -55,7 +55,7 @@
 	    							if ($data_round["end2"] == 1)
 	    							{
 	    								// UPDATE DUEL
-                                        $duel->set_current_round_id($data_duel["current_round_id"]+1);
+                                        $duel->set_current_round_id($data_duel["current_round_id"] + 1);
 	    								$duel->set_current_round_number($data_duel["current_round_number"] + 1);
 	    								$duel->update($id_duel);
 	    							}
@@ -83,7 +83,7 @@
 	    							if ($data_round["end1"] == 1)
 	    							{
 	    								// UPDATE DUEL
-                                        $duel->set_current_round_id($data_duel["current_round_id"]+1);
+                                        $duel->set_current_round_id($data_duel["current_round_id"] + 1);
 	    								$duel->set_current_round_number($data_duel["current_round_number"] + 1);
 	    								$duel->update($id_duel);
 	    							}
