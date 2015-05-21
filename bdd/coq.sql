@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 20 Mai 2015 à 18:44
+-- Généré le :  Jeu 21 Mai 2015 à 11:10
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.5.8
 
@@ -59,7 +59,8 @@ CREATE TABLE IF NOT EXISTS `coq_config` (
 
 INSERT INTO `coq_config` (`key_2`, `val`) VALUES
 ('nb_question_collecti', '5'),
-('nb_round_duel', '3');
+('nb_round_duel', '3'),
+('timeout_question', '10');
 
 -- --------------------------------------------------------
 
@@ -80,14 +81,14 @@ CREATE TABLE IF NOT EXISTS `coq_duel` (
   KEY `COQ_Dual_FKIndex1` (`user1_id`),
   KEY `COQ_Dual_FKIndex2` (`user2_id`),
   KEY `FK_DUEL__ROUND` (`current_round_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Les duels' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Les duels' AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `coq_duel`
 --
 
 INSERT INTO `coq_duel` (`id`, `user1_id`, `user2_id`, `current_round_id`, `current_round_number`, `score1`, `score2`) VALUES
-(1, 1, 2, 2, 2, 0, 0);
+(1, 1, 2, 2, 2, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -188,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `coq_round` (
 
 INSERT INTO `coq_round` (`id`, `chosen_theme1_id`, `chosen_theme2_id`, `collection_id`, `selected_theme_id`, `score1`, `score2`, `end1`, `end2`) VALUES
 (1, 3, 3, 1, 3, 4, 2, 1, 1),
-(2, 4, 4, 2, 4, 5, 0, 0, 0);
+(2, 4, 4, 2, 4, 5, 2, 0, 1);
 
 -- --------------------------------------------------------
 
