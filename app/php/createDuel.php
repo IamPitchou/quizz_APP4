@@ -26,7 +26,7 @@
                 if ($id_duel < 1)
                     echo ("Unable to find the last duel id");
                 else
-                    return $id_duel;
+                    echo($id_duel);
             }
         }
     }
