@@ -25,41 +25,36 @@
     			else
     			{
     				$duel = new coq_duel();
-    				$data_duel = $duel->find($id_duel);
-    				if ($data_duel == 0)
+    				$data = $duel->submit_round($id_duel);
+    				if ($data == 0)
     					echo('Unable to find the curent round number');
     				else
     				{
-    					$crn = $data_duel["current_round_number"];
+    					$crn = $data["current_round_number"];
     					// VERIFIER QUE LE ROUND COURANT < ROUND MAX
                         if ($crn <= $nb_round_duel)
     					{
     						// USER 1
-                            if ($data_duel["user1_id"] == $user_id)
+                            if ($data["user1_id"] == $user_id)
     						{
     							// UPDATE DUEL
-                                $duel->init($data_duel["user1_id"], $data_duel["user2_id"], $data_duel["current_round_id"], 
-    										$crn, $data_duel["score1"] + $score, $data_duel["score2"]);
+                                $duel->init($data["user1_id"], $data["user2_id"], $data["current_round_id"], 
+    										$crn, $data["cd_sc1"] + $score, $data["cd_sc2"]);
     							$duel->update($id_duel);
-    							$round = new coq_round();
-    							$data_round = $round->find($data_duel["current_round_id"]);
-    							if ($data_round == 0)
-    								echo('Unable to find the current round');
-    							else
+
+    							// UPDATE ROUND
+                                $round = new coq_round(); 
+                                $round->init($data["chosen_theme1_id"], $data["chosen_theme2_id"], $data["collection_id"],
+    										 $data["selected_theme_id"], $score, $data["cr_sc2"], 1, 
+    										 $data["end2"]);
+    							$round->update($data["current_round_id"]);
+    							if ($data["end2"] == 1)
     							{
-	    							// UPDATE ROUND
-                                    $round->init($data_round["chosen_theme1_id"], $data_round["chosen_theme2_id"], $data_round["collection_id"],
-	    										 $data_round["selected_theme_id"], $score, $data_round["score2"], 1, 
-	    										 $data_round["end2"]);
-	    							$round->update($data_duel["current_round_id"]);
-	    							if ($data_round["end2"] == 1)
-	    							{
-	    								// UPDATE DUEL
-                                        $duel->set_current_round_id($data_duel["current_round_id"] + 1);
-	    								if ($crn < $nb_round_duel)
-                                            $duel->set_current_round_number($data_duel["current_round_number"] + 1);
-	    								$duel->update($id_duel);
-	    							}
+    								// UPDATE DUEL
+                                    $duel->set_current_round_id($data["current_round_id"] + 1);
+    								if ($crn < $nb_round_duel)
+                                        $duel->set_current_round_number($data["current_round_number"] + 1);
+    								$duel->update($id_duel);
 	    						}
 
     						}
@@ -67,30 +62,24 @@
     						else
     						{
     							// UPDATE DUEL
-                                $duel->init($data_duel["user1_id"], $data_duel["user2_id"], $data_duel["current_round_id"], 
-    										$crn, $data_duel["score1"], $data_duel["score2"] + $score);
+                                $duel->init($data["user1_id"], $data["user2_id"], $data["current_round_id"], 
+    										$crn, $data["cd_sc1"], $data["cd_sc2"] + $score);
     							$duel->update($id_duel);
-    							$round = new coq_round();
-    							$data_round = $round->find($data_duel["current_round_id"]);
-    							if ($data_round == 0)
-    								echo('Unable to find the current round');
-    							else
+    							// UPDATE ROUND
+                                $round = new coq_round();
+                                $round->init($data["chosen_theme1_id"], $data["chosen_theme2_id"], $data["collection_id"],
+    										 $data["selected_theme_id"], $data["cr_sc1"], $score, $data["end1"], 
+    										 1);
+    							$round->update($data["current_round_id"]);
+    							if ($data["end1"] == 1)
     							{
-	    							// UPDATE ROUND
-                                    $round->init($data_round["chosen_theme1_id"], $data_round["chosen_theme2_id"], $data_round["collection_id"],
-	    										 $data_round["selected_theme_id"], $data_round["score1"], $score, $data_round["end1"], 
-	    										 1);
-	    							$round->update($data_duel["current_round_id"]);
-	    							if ($data_round["end1"] == 1)
-	    							{
-	    								// UPDATE DUEL
-                                        $duel->set_current_round_id($data_duel["current_round_id"] + 1);
-	    								if ($crn < $nb_round_duel)
-                                           $duel->set_current_round_number($data_duel["current_round_number"] + 1);
-	    								$duel->update($id_duel);
-	    							}
-	    						}
-    						}
+    								// UPDATE DUEL
+                                    $duel->set_current_round_id($data["current_round_id"] + 1);
+    								if ($crn < $nb_round_duel)
+                                       $duel->set_current_round_number($data["current_round_number"] + 1);
+    								$duel->update($id_duel);
+    							}
+						    }
     					}
     				}
     			}

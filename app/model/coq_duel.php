@@ -155,9 +155,16 @@ class  coq_duel
 	}
 	public function submit_round ($id_duel)
 	{
-		$rqt = "SELECT * 
+		$rqt = "SELECT user1_id, user2_id, current_round_id, current_round_number, cd.score1 as cd_sc1, cd.score2 as cd_sc2,
+					   chosen_theme1_id, chosen_theme2_id, collection_id, selected_theme_id, cr.score1 as cr_sc1, cr.score2 as cr_sc2,
+					   end1, end2
 				FROM coq_duel as cd, coq_round as cr 
 				WHERE cd.id = ".$id_duel." AND cd.current_round_id = cr.id";
+		$this->pdo = initPDOObject();
+		$data = $this->pdo->request($rqt, $error);
+		if (count($data) > 0) return $data[0];
+		else return 0;
+
 	}
 	public function duel_is_finished_or_not ($id_duel)
 	{
