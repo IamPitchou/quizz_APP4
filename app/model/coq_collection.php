@@ -93,6 +93,16 @@ class  coq_collection
 		$this->pdo = initPDOObject();
 		return $this->pdo->request($rqt, $error);
 	}
+	public function get_all_ids ($id_collec)
+	{
+		$rqt = "SELECT id
+				FROM coq_collection
+				WHERE id <> ".$id_collec."";
+		$this->pdo = initPDOObject();
+		$data = $this->pdo->request($rqt, $error);
+		if (count($data) > 0) return $data;
+		else return 0;
+	}
 
 	public function find($id)
 	{

@@ -12,6 +12,7 @@ class  coq_round
 	private $score2;
 	private $end1;
 	private $end2;
+	public static $random_id_round;
 
 	public function init($chosen_theme1_id, $chosen_theme2_id, $collection_id, $selected_theme_id, $score1, $score2, $end1, $end2)
 	{ 
@@ -181,6 +182,17 @@ class  coq_round
 		$this->pdo = initPDOObject();
 		$data = $this->pdo->request($rqt, $error);
 		if (count($data) > 0) return $data[0]["id"];
+		else return 0;
+	}
+
+	public function get_all_ids ($id_round)
+	{
+		$rqt = "SELECT id
+				FROM coq_round
+				WHERE id <> ".$id_round."";
+		$this->pdo = initPDOObject();
+		$data = $this->pdo->request($rqt, $error);
+		if (count($data) > 0) return $data;
 		else return 0;
 	}
 
