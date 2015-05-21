@@ -176,6 +176,16 @@ class  coq_duel
 		if (count($data) > 0) return $data[0];
 		else return 0;
 	}
+	public function get_last_duel_created ()
+	{
+		$rqt = "SELECT id FROM coq_duel
+				ORDER BY id DESC
+				LIMIT 1";
+		$this->pdo = initPDOObject();
+		$data = $this->pdo->request($rqt, $error);
+		if (count($data) > 0) return $data[0]["id"];
+		else return 0;
+	}
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_duel WHERE id = ".$id;

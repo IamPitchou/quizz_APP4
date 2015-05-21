@@ -173,6 +173,16 @@ class  coq_round
 		return $this->pdo->request($rqt, $error);
 	}
 
+	public function get_last_round_created ()
+	{
+		$rqt = "SELECT id FROM coq_round
+				ORDER BY id DESC
+				LIMIT 1";
+		$this->pdo = initPDOObject();
+		$data = $this->pdo->request($rqt, $error);
+		if (count($data) > 0) return $data[0]["id"];
+		else return 0;
+	}
 
 	public function find($id)
 	{
