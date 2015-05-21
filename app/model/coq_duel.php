@@ -128,7 +128,7 @@ class  coq_duel
 	public function get_duels ($id_duel)
 	{
 		
-		$rqt = "SELECT  cd.id, cu1.pseudo as pseudo1, cu2.pseudo as pseudo2, cd.current_round_number, ct.val as theme, cq.val as question, 
+		/*$rqt = "SELECT  cd.id, cu1.pseudo as pseudo1, cu2.pseudo as pseudo2, cd.current_round_number, ct.val as theme, cq.val as question, 
 						cq.answer1, cq.answer2, cq.answer3, cq.answerOK, cr.score1, cr.score2
 				FROM coq_duel cd, coq_user cu1, coq_user cu2, coq_round cr, coq_theme ct, coq_question cq
 				WHERE cd.id = ".$id_duel."
@@ -136,7 +136,20 @@ class  coq_duel
 				AND cd.user2_id = cu2.id 
 				AND cd.current_round_id = cr.id
 				AND cr.selected_theme_id = ct.id
-				AND cq.theme_id = ct.id";
+				AND cq.theme_id = ct.id";*/
+		$rqt = "SELECT cd.id, cu1.pseudo as pseudo1, cu2.pseudo as pseudo2, cd.current_round_number,
+				cq.val as question, cq.answer1, cq.answer2, cq.answer3,
+				cq.answerOK, cr.score1, cr.score2, ct.val as theme
+				FROM coq_duel cd, coq_user cu1, coq_user cu2, coq_round cr, coq_collection cc,
+				coq_theme ct, coq_question cq, coq_question_collection ccq
+				WHERE cd.id = ".$id_duel."
+				AND cd.user1_id = cu1.id
+				AND cd.user2_id = cu2.id
+				AND cd.current_round_id = cr.id
+				AND ccq.collection_id = cr.collection_id
+				AND ccq.question_id = cq.id
+				AND ccq.collection_id = cc.id
+				AND ct.id = cq.theme_id";
 		$this->pdo = initPDOObject();
 		$data = $this->pdo->request($rqt, $error);
 		if (count($data) > 0) return $data;
