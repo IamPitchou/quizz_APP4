@@ -162,7 +162,7 @@ class  coq_duel
 	}
 	public function duel_is_finished_or_not ($id_duel)
 	{
-		$rqt = "SELECT end1, end2 
+		$rqt = "SELECT end1, end2, current_round_number 
 				FROM coq_duel as cd, coq_round as cr 
 				WHERE cd.id = ".$id_duel." AND cr.id = cd.current_round_id";
 		$this->pdo = initPDOObject();

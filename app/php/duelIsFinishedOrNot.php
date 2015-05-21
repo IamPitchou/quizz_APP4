@@ -11,10 +11,17 @@
             echo ('Error duel id invalid');
         else
         {
-            if ($data["end1"] == 1 && $data["end2"] == 1)
-                return 1;
+            $config = new coq_config();
+            $nb_round_duel = $config->get_nb_round_duel();
+            if($nb_round_duel == 0)
+                echo("Unable to find the nb round by duel");
             else
-                return 0;
+            {
+                if ($data["end1"] == 1 && $data["end2"] == 1 && $data["current_round_number"] ==  $nb_round_duel)
+                    return 1;
+                else
+                    return 0;
+            }
         }
        
     }
