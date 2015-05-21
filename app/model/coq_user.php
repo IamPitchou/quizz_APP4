@@ -112,7 +112,7 @@ class  coq_user
 
 	public function get_duels_of_user ($id_user)
 	{
-		$rqt = "SELECT cu1.pseudo as pseudo1, cu2.pseudo as pseudo2, cd.total_score1, cd.total_score2 
+		$rqt = "SELECT cu1.pseudo as pseudo1, cu2.pseudo as pseudo2, cd.score1, cd.score2 
 			    FROM coq_duel as cd, coq_user as cu1, coq_user as cu2 
 			    WHERE cu1.id = ".$id_user." AND user1_id = cu1.id AND user2_id = cu2.id 
 			   	  OR cu2.id = ".$id_user." AND user2_id = cu2.id AND user1_id = cu1.id";

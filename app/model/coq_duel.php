@@ -7,17 +7,17 @@ class  coq_duel
 	private $user2_id;
 	private $current_round_id;
 	private $current_round_number;
-	private $total_score1;
-	private $total_score2;
+	private $score1;
+	private $score2;
 
-	public function init($user1_id, $user2_id, $current_round_id, $current_round_number, $total_score1, $total_score2)
+	public function init($user1_id, $user2_id, $current_round_id, $current_round_number, $score1, $score2)
 	{ 
 		$this->user1_id = $user1_id;
 		$this->user2_id = $user2_id;
 		$this->current_round_id = $current_round_id;
 		$this->current_round_number = $current_round_number;
-		$this->total_score1 = $total_score1;
-		$this->total_score2 = $total_score2;
+		$this->score1 = $score1;
+		$this->score2 = $score2;
 	} 
 
 	
@@ -43,11 +43,11 @@ class  coq_duel
 	}
 	public function get_score1()
 	{	
-		return $this->total_score1; 
+		return $this->score1; 
 	}
-	public function get_total_score2()
+	public function get_score2()
 	{	
-		return $this->total_score2; 
+		return $this->score2; 
 	}
 
 	// Les mutateurs
@@ -72,11 +72,11 @@ class  coq_duel
 	}
 	public function set_score1($value)
 	{
-		$this->total_score1 = $value;
+		$this->score1 = $value;
 	}
-	public function set_total_score2($value)
+	public function set_score2($value)
 	{
-		$this->total_score2 = $value;
+		$this->score2 = $value;
 	}
 
 	public function add()
@@ -88,8 +88,8 @@ class  coq_duel
 			user2_id,
 			current_round_id,
 			current_round_number,
-			total_score1, 
-			total_score2
+			score1, 
+			score2
 		)
 		VALUES
 		(
@@ -97,8 +97,8 @@ class  coq_duel
 			"'.$this->user2_id.'",
 			"'.$this->current_round_id.'",
 			"'.$this->current_round_number.'", 
-			"'.$this->total_score1.'",
-			"'.$this->total_score2.'"
+			"'.$this->score1.'",
+			"'.$this->score2.'"
 		)';
 		$this->pdo = initPDOObject();
 		$this->pdo->request($rqt, $error);
@@ -112,8 +112,8 @@ class  coq_duel
 			user2_id = "'.$this->user2_id.'",
 			current_round_id = "'.$this->current_round_id.'",
 			current_round_number = "'.$this->current_round_number.'", 
-			total_score1 = "'.$this->total_score1.'",
-			total_score2 = "'.$this->total_score2.'"
+			score1 = "'.$this->score1.'",
+			score2 = "'.$this->score2.'"
 		WHERE id ='.$id;
 		echo("</br>". $rqt);
 		$this->pdo = initPDOObject();
@@ -130,7 +130,7 @@ class  coq_duel
 	{
 		
 		$rqt = "SELECT  cd.id, cu1.pseudo as pseudo1, cu2.pseudo as pseudo2, cd.current_round_number, ct.val as theme, cq.val as question, 
-						cq.answer1, cq.answer2, cq.answer3, cq.answerOK, cr.round_score1, cr.round_score2
+						cq.answer1, cq.answer2, cq.answer3, cq.answerOK, cr.score1, cr.score2
 				FROM coq_duel cd, coq_user cu1, coq_user cu2, coq_round cr, coq_theme ct, coq_question cq
 				WHERE cd.id = ".$id_duel."
 				AND cd.user1_id = cu1.id
@@ -146,7 +146,7 @@ class  coq_duel
 	}
 	public function get_score($id_duel)
 	{
-		$rqt = "SELECT cd.total_score1, cd.total_score2
+		$rqt = "SELECT cd.score1, cd.score2
 				FROM coq_duel cd
 				WHERE cd.id = ".$id_duel."";
 		$this->pdo = initPDOObject();
@@ -182,7 +182,7 @@ class  coq_duel
 	{
 		return json_encode(array("user1_id" => $this->user1_id, "user2_id" => $this->user2_id, 
 								 "current_round_id" => $this->current_round_id, "current_round_number" => $this->current_round_number, 
-								 "total_score1" => $this->total_score1, "total_score2" => $this->total_score2));
+								 "score1" => $this->score1, "score2" => $this->score2));
 	}
 }
 ?>
