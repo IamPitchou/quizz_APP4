@@ -159,6 +159,10 @@ class  coq_duel
 		$rqt = "SELECT * 
 				FROM coq_duel as cd, coq_round as cr 
 				WHERE cd.id = ".$id_duel." AND cd.current_round_id = cr.id";
+		$this->pdo = initPDOObject();
+		$data = $this->pdo->request($rqt, $error);
+		if (count($data) > 0) return $data[0];
+		else return 0;
 	}
 	public function duel_is_finished_or_not ($id_duel)
 	{
