@@ -16,7 +16,7 @@
             foreach ($data as $d)
                 $arr_data_user[] = array("id" => $d["id"], "pseudo" => $d["pseudo"]);
             $arr = array("users" => $arr_data_user);
-            json_encode($arr);
+            echo(json_encode($arr));
         }
     }
 ?>
