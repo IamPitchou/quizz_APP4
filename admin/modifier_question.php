@@ -18,9 +18,9 @@
 	<meta name="author" content="">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script
-	<!--<script type="text/javascript" src="js/geolocation.js"></script> -->
-	 <title>Liste des Questions</title>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<!-- <script type="text/javascript" src="js/geolocation.js"></script> -->
+	 <title>Modifier une question</title>
 </head>
     
     <?php 
