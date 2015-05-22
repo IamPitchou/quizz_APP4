@@ -72,8 +72,8 @@ class coq_theme
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_theme WHERE id = ".$id;
-		$data = $this->pdo->request($rqt, $error);
 		$this->pdo = initPDOObject();
+		$data = $this->pdo->request($rqt, $error);
 		if (count($data) > 0) return $data[0];
 		else return 0;
 	}
