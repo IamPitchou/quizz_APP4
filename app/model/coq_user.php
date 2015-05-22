@@ -162,7 +162,17 @@ class  coq_user
 		if (count($answ) > 0) return $answ;
 		else return 0;   		
 	}
-
+	public function userIsFinished ($id_user, $id_duel)
+	{
+		
+		$rqt = "SELECT IF (cd.user1_id = cu.id, end1, IF(cd.user2_id = cu.id, end2, 0)) as res
+				FROM coq_user as cu, coq_duel as cd, coq_round as cr
+				WHERE cu.id = ".$id_user." AND cd.id = ".$id_duel." AND cd.current_round_id = cr.id";
+		$this->pdo = initPDOObject();
+		$data = $this->pdo->request($rqt, $error);
+		if (count($data) > 0) return $data[0];
+		else return 0;
+	}
 	public function find($id)
 	{
 		$rqt = "SELECT * FROM coq_user WHERE id = ".$id;
