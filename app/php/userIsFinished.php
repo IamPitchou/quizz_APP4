@@ -17,7 +17,7 @@
         		echo('Error unable to find if the user is finished or not');
         	else 
         	{
-        		echo('res '.$data["res"]);	
+        		echo($data["res"]);	
         	}
         }
     }
