@@ -5,6 +5,7 @@
     }
     require_once('./../app/model/coq_collection.php');
     require_once('./../app/model/coq_question_collection.php');
+    require_once('./../app/model/coq_question.php');
     require_once('./../app/model/coq_theme.php');
 	$error = "";
 ?> 
@@ -22,93 +23,75 @@
 	 <title>Liste des Séries</title>
 </head>
 
+    <?php
+         
+        if (isset($_POST['nb_val'])) {
+        
+        $collection = new coq_collection;
+        $collection->init($_POST['title'], $_POST['difficulty']);
+        $collection->add();
+        
+        var_dump($_POST['nb_val']);
+        for ($i = 1; $i <= $_POST['nb_val']; $i++) {
+            if (isset($_POST['question'.$i])){
+                $question_coll = new coq_question_collection;
+                $question_coll->init($_POST['question'.$i],$collection->get_id());
+                $question_coll->add();
+                echo "for ".$i;
+            }
+        }
+        echo "sortie";
+        //header('Location: ./liste_serie.php');
+        }
+    ?>
+
+
     <body>
-        <p><a href="./index.php">Accueil back office</a> <a href="./liste_serie.php">Rafraichir la page</a> </p>
+        <p><a href="./index.php">Accueil back office</a> <a href="./liste_serie.php">Retour à la liste</a> </p>
         
           <div class="container marketing">
-          <form method="post" action="./liste_serie.php">
-            <hr>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Ajouter une série</h3>
-                </div>
-                
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-4 col-md-6">
-                            
-                            <div id="div_nom" class="form-group">
-
-                                <label for="name">Titre <br/></label>
-                                <input type="text" name="title" id="title" style="width: 300px;" required/>
-
-                            </div>
-                            
-                            <div id="div_theme" class="form-group">
-                                
-                                <?php $c = new coq_theme; $reponse = $c->list_();?>
-                                
-                                <label for="theme">Sélectionnez le thème :<br/></label>
-                                <select name="theme" id="theme" style="width: 300px;">
-                                    <?php foreach($reponse as $donnees){ ?>
-                                        <option value=<?php echo $donnees['id']; ?>><?php echo $donnees['val']; ?></option>
-                                    <?php } ?>
-                               </select>
-                            </div>
-                            
-                            <div id="div_theme" class="form-group">
-                                
-                                <label for="theme">Sélectionnez la difficultée :<br/></label>
-                                <select name="theme" id="theme" style="width: 300px;">
-                                    <option value=1>Facile</option>
-                                    <option value=2>Moyen</option>
-                                    <option value=3>Difficile</option>
-                               </select>
-                            </div>
-
-                        </div><!-- /.col-sm-6 col-md-6 -->
-
-                    </div><!-- /.row -->
-
-                </div><!-- /.panel-body -->
-                <input type="submit" value="Créer une série" style="display:block; margin: auto;"/>
-                
-            </div><!-- /.panel panel-default -->
-            <hr>
-            
-          </form>
-          </div><!-- /.container marketing -->
-        
-        
-        
-        <?php        
-            $q = new coq_collection;
-            $reponse = $q->list_();
+          <form method="post" action="./creer_serie.php">
+            <?php        
+            $q = new coq_question;
+            $reponse = $q->get_question_by_theme($_POST['theme']);
         ?>
-        <h1>Liste Séries</h1> 
+        <h1>Liste Questions</h1> 
         <hr /> 
         <table border="1"> 
             <th> Id </th>
-            <th> Theme </th>
-            <th> Titre </th>
-            <th> Difficultee </th>
+            <th> Question </th>
+            <th> Réponse 1 </th>
+            <th> Réponse 2 </th>
+            <th> Réponse 3 </th>
+            <th> Réponse Correcte </th>
 
             <?php
-            // On affiche chaque entrée une a une
+            $i = 1;
+            // On affiche chaque entrée une à une
             foreach($reponse as $donnees)
             {
                 echo "<tr>";  
                 echo " <td>" . $donnees['id'] . "</td>";  
-                echo " <td></td>"; //. $donnees[''] .
-                echo " <td>" . $donnees['title'] . "</td>"; 
-                echo " <td>" . $donnees['difficulty'] . "</td>"; 
+                echo " <td>" . $donnees['question'] . "</td>"; 
+                echo " <td>" . $donnees['answer1'] . "</td>"; 
+                echo " <td>" . $donnees['answer2'] . "</td>"; 
+                echo " <td>" . $donnees['answer3'] . "</td>"; 
+                echo " <td>" . $donnees['answerOK'] . "</td>"; 
                 ?>
-                <td><a href="modifier_serie.php?id_modif=<?php echo $donnees['id']; ?>"> Modifier </a></td>
-                <td><a href="supprimer_serie.php?id_modif=<?php echo $donnees['id']; ?>"> Supprimer </a></td> 
-                <?php echo "</tr>";
+                <td><input type="checkbox" name="question<?php echo $i?>" value=<?php echo $donnees['id']?>> </td> <?php
+                echo "</tr>";
+                $i = $i+1;
             }
             ?>
-        </table>
-        <p><a href="./index.php">Accueil back office</a> </p>
+        </table> <br/>
+        <input type="submit" value="Ajouter la série de questions" style="display:block; margin: auto;"/>
+        <input type="hidden" name="nb_val" value=<?php echo $i ?>>
+        <input type="hidden" name="title" value=<?php echo $_POST['title'] ?>>
+        <input type="hidden" name="difficulty" value=<?php echo $_POST['difficulty'] ?>>
+            
+          </form>
+          </div><!-- /.container marketing -->
+    <p><a href="./index.php">Accueil back office</a> </p>
+        
     </body>
 </html>

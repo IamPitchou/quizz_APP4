@@ -26,7 +26,7 @@
         <p><a href="./index.php">Accueil back office</a> <a href="./liste_serie.php">Rafraichir la page</a> </p>
         
           <div class="container marketing">
-          <form method="post" action="./liste_serie.php">
+          <form method="post" action="./creer_serie.php">
             <hr>
             <div class="panel panel-default">
                 <div class="panel-heading">

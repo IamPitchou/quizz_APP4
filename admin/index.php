@@ -28,6 +28,7 @@
             <p><a href="./liste_question.php">Gestion des questions</a> </p>
             <p><a href="./liste_serie.php">Gestion des séries</a> </p>
             <p><a href="./liste_theme.php">Gestion des thèmes</a> </p>
+            <p><a href="./liste_utilisateur.php">Gestion des utilisateurs</a> </p>
         </div>
         <!-- FIN CONTENU -->
     </div>
