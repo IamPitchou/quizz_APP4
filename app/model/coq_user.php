@@ -78,6 +78,7 @@ class  coq_user
 			id,
 			login,
 			pwd,
+			pseudo,
 			rights
 		)
 		VALUES
@@ -85,6 +86,7 @@ class  coq_user
 			"'.$this->id.'",
 			"'.$this->login.'",
 			"'.$this->pwd.'",
+			"'.$this->pseudo.'",
 			"'.$this->rights.'"
 		)';
 		$this->pdo = initPDOObject();
