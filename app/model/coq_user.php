@@ -99,6 +99,7 @@ class  coq_user
 		'UPDATE coq_user SET
 			login = "'.$this->login.'",
 			pwd = "'.$this->pwd.'",
+            pseudo = "'.$this->pseudo.'"
 			rights = "'.$this->rights.'"
 		WHERE id ='.$id;
 		$this->pdo = initPDOObject();
