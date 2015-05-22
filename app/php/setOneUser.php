@@ -20,10 +20,6 @@
         }
     }
 
-    var_dump($login);
-    var_dump($pseudo);
-    var_dump($password);
-
     header('Location: ../../');
 
 ?>
