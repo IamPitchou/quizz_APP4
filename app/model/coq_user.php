@@ -136,13 +136,13 @@ class  coq_user
 	}
 	public function get_allDuelsOfUser($id_user)
 	{
-		$rqt = "SELECT cd.id, cu2.pseudo, cd.score1, cd.score2, cd.current_round_number
+		$rqt = "SELECT cd.id, cu2.pseudo, cu1.pseudo as user1, cu2.pseudo as user2, cd.score1, cd.score2, cd.current_round_number
 				FROM coq_duel as cd, coq_user as cu1, coq_user as cu2
 				WHERE cd.user1_id = ".$id_user." 
 				AND cd.user1_id = cu1.id
 				AND cd.user2_id = cu2.id
 				UNION
-				SELECT cd.id, cu1.pseudo, cd.score1, cd.score2, cd.current_round_number
+				SELECT cd.id, cu1.pseudo, cu1.pseudo as user1, cu2.pseudo as user2, cd.score1, cd.score2, cd.current_round_number
 				FROM coq_duel as cd, coq_user as cu1, coq_user as cu2
 				WHERE cd.user2_id = ".$id_user." 
 				AND cd.user1_id = cu1.id

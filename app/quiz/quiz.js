@@ -58,7 +58,7 @@ angular.module('coq')
 	           	 	$scope.nbDuelList = data.duels.length;
 	           	 	var temp;
 	           	 	for(var i = 0; i < $scope.duelList.length; i++) {
-           	 			if($scope.me_pseudo != $scope.duelList[i].user2) {
+           	 			if($scope.me_pseudo == $scope.duelList[i].user2) {
            	 				temp = $scope.duelList[i].score1;
            	 				$scope.duelList[i].score1 = $scope.duelList[i].score2;
            	 				$scope.duelList[i].score2 = temp;

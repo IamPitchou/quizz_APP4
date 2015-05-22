@@ -15,7 +15,7 @@
 	    {
 	        foreach ($data as $d) 
 	        {
-	        	$arr_data[] = array("id" => $d["id"], "name" => $d["pseudo"], 
+	        	$arr_data[] = array("id" => $d["id"], "name" => $d["pseudo"], "user1" => $d["user1"], "user2" => $d["user2"],
 	        						"score1" => $d["score1"], "score2" => $d["score2"], 
 	        						"current_round_number" => $d["current_round_number"]);
 	        }
