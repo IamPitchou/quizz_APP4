@@ -17,15 +17,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<!--<script type="text/javascript" src="js/geolocation.js"></script> -->
 	 <title>Liste des Séries</title>
 </head>
 
     <body>
+        <div class="container marketing">
         <p><a href="./index.php">Accueil back office</a> <a href="./liste_serie.php">Rafraichir la page</a> </p>
-        
-          <div class="container marketing">
+
           <form method="post" action="./creer_serie.php">
             <hr>
             <div class="panel panel-default">
@@ -77,9 +79,7 @@
             <hr>
             
           </form>
-          </div><!-- /.container marketing -->
-        
-        
+
         
         <?php        
             $q = new coq_collection;
@@ -87,7 +87,7 @@
         ?>
         <h1>Liste Séries</h1> 
         <hr /> 
-        <table border="1"> 
+        <table class="table table-hover"> 
             <th> Id </th>
             <th> Theme </th>
             <th> Titre </th>
@@ -110,5 +110,6 @@
             ?>
         </table>
         <p><a href="./index.php">Accueil back office</a> </p>
+         </div><!-- /.container marketing -->
     </body>
 </html>

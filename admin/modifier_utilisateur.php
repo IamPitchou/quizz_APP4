@@ -24,23 +24,34 @@
 </head>
     
     <?php 
-        if (isset($_POST['login'])) {
+        if (isset($_GET['id_modif'])) {
+        
+        $q = new coq_user;
+        $data = $q->find($_GET['id_modif']);
+        //var_dump($data);
+        //echo "<p> entry </p>";
+        }
+        //header('Location: ./liste_question.php');
+        
+        else if (isset($_POST['login']) && isset($_POST['id'])) {
         
         $q = new coq_user;
         $q->init($_POST['login'], $_POST['pwd'],$_POST['pseudo'],$_POST['droit']);
-        $q->add();
+        $q->update($_POST['id']);
+        //echo "<p> modif </p>";
+        header('Location: ./liste_utilisateur.php');
         }
     ?>
     
     <body>
-      <div class="container marketing">
-        <p><a href="./index.php">Accueil back office</a> <a href="./liste_utilisateur.php">Rafraichir la page</a> </p>
-        
-          <form method="post" action="./liste_utilisateur.php">
+    <div class="container marketing">
+        <p><a href="./index.php">Accueil back office</a> <a href="./liste_utilisateur.php">Liste des utilisateurs</a> </p>
+
+          <form method="post" action="./modifier_utilisateur.php">
             <hr>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Ajouter un utilisateur</h3>
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp Modifier un utilisateur</h3>
                 </div>
                 
                 <div class="panel-body">
@@ -51,24 +62,24 @@
 
                             <div id="div_login" class="form-group">
                                 <label for="login">Identifiant (email) :<br/></label>
-                                <input type="text" name="login" id="login" style="width: 300px;" required/>
+                                <input type="text" name="login" id="login" style="width: 300px;" value="<?php echo htmlspecialchars($data['login'])?>" required/>
                             </div>
                             
                             <div id="div_pwd" class="form-group">
-                                <label for="reponse_2">Mot de passe :<br/></label>
-                                <input type="password" name="pwd" id="pwd" style="width: 300px;" required/>
+                                <label for="pwd">Mot de passe :<br/></label>
+                                <input type="password" name="pwd" id="pwd" style="width: 300px;" value="<?php echo htmlspecialchars($data['pwd'])?>" required/>
                             </div>
                             
                             <div id="div_pseudo" class="form-group">
                                 <label for="pseudo">Pseudonyme :<br/></label>
-                                <input type="text" name="pseudo" id="pseudo" style="width: 300px;" required/>
+                                <input type="text" name="pseudo" id="pseudo" style="width: 300px;" value="<?php echo htmlspecialchars($data['pseudo'])?>" required/>
                             </div>
                             
                             <div id="div_droit" class="form-group">
                                 <label for="droit">Sélectionnez les droits :<br/></label>
                                 <select name="droit" id="droit" style="width: 300px;">
-                                    <option value=0>Utilisateur</option>
-                                    <option value=1>Administrateur</option>
+                                    <option value=0 <?php if($data['rights'] == 0) echo " selected" ?>>Utilisateur</option>
+                                    <option value=1 <?php if($data['rights'] == 1) echo " selected" ?>>Administrateur</option>
                                 </select>
                             </div>
 
@@ -83,45 +94,13 @@
                     </div><!-- /.row -->
 
                 </div><!-- /.panel-body -->
-                <input type="submit" value="Ajouter l'utilisateur" style="display:block; margin: auto;"/>
-                
+                <input type="submit" value="Modifier l'utilisateur" style="display:block; margin: auto;"/>
+                <input type="hidden" name="id" value=<?php echo $_GET['id_modif'] ?>>
             </div><!-- /.panel panel-default -->
             <hr>
             
           </form>
-         
-        
 
-        
-        <?php        
-            $q = new coq_user;
-            $reponse = $q->list_();
-        ?>
-        <h1>Liste Utilisateurs</h1> 
-        <hr /> 
-        <table class="table table-hover">
-            <th> Id </th>
-            <th> Identifiant </th>
-            <th> Mot de passe </th>
-            <th> Pseudonyme </th>
-            <th> Droits </th>
-
-            <?php
-            // On affiche chaque entree une a une
-            foreach($reponse as $donnees)
-            {
-                echo "<tr>";  
-                echo " <td>" . $donnees['id'] . "</td>";  
-                echo " <td>" . $donnees['login'] . "</td>"; 
-                echo " <td>" . $donnees['pwd'] . "</td>"; 
-                echo " <td>" . $donnees['pseudo'] . "</td>"; 
-                echo " <td>" . $donnees['rights'] . "</td>";  
-                ?>
-                <td><a href="modifier_utilisateur.php?id_modif=<?php echo $donnees['id']; ?>"> Modifier </a></td> <?php
-                echo "</tr>";
-            }
-            ?>
-        </table>
         <p><a href="./index.php">Accueil back office</a> </p>
         </div><!-- /.container marketing -->
     </body>

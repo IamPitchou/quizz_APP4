@@ -16,7 +16,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script
 	<!--<script type="text/javascript" src="js/geolocation.js"></script> -->
 	 <title>Liste des Questions</title>
 </head>
@@ -27,8 +29,8 @@
         
         $q = new coq_question;
         $data = $q->find($_GET['id_modif']);
-        var_dump($data);
-        echo "<p> entry </p>";
+        //var_dump($data);
+        //echo "<p> entry </p>";
         }
         //header('Location: ./liste_question.php');
         
@@ -37,7 +39,7 @@
         $q = new coq_question;
         $q->init($_POST['theme'], $_POST['question'],$_POST['reponse_1'],$_POST['reponse_2'],$_POST['reponse_3'],$_POST['reponse_correcte']);
         $q->update($_POST['id']);
-        echo "<p> modif </p>";
+        //echo "<p> modif </p>";
         header('Location: ./liste_question.php');
         }
         
@@ -45,10 +47,11 @@
     
     
     <body>
-        <p><a href="./index.php">Accueil back office</a> <a href="./liste_question.php">Liste des Questions</a> </p>
         
-          <div class="container marketing">
-          <form method="post" action="./modifier_question.php">
+        <div class="container marketing">
+            <p><a href="./index.php">Accueil back office</a> <a href="./liste_question.php">Liste des Questions</a> </p>
+          
+            <form method="post" action="./modifier_question.php">
             <hr>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -57,14 +60,6 @@
                 
                 <div class="panel-body">
                     <div class="row">
-                    
-                        <div class="">
-
-                            <div id="div_id" class="form-group">
-                                <label for="id">Id (indique la question a modifier) :<br/></label>
-                                <input type="text" name="id" id="id" value=<?php echo $data['id'] ?> style="width: 300px;" required/>
-                            </div>
-                        </div>
                         
                         <div class="">
                     
@@ -83,7 +78,7 @@
                         </div>
                         <br/>
                     
-                        <div class="col-sm-4 col-md-6">
+                        <div class="">
                             
                             <div id="div_question" class="form-group">
                                 <label for="question">Ecrivez la question :<br/></label>
@@ -124,13 +119,14 @@
 
                 </div><!-- /.panel-body -->
                 <input type="submit" value="Modifier la question" style="display:block; margin: auto;"/>
-                
+                <input type="hidden" name="id" value=<?php echo $_GET['id_modif'] ?>>
             </div><!-- /.panel panel-default -->
             <hr>
             
           </form>
+          <p><a href="./index.php">Accueil back office</a> </p>
           </div><!-- /.container marketing -->
         
-        <p><a href="./index.php">Accueil back office</a> </p>
+        
     </body>
 </html>

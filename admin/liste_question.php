@@ -16,7 +16,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<!--<script type="text/javascript" src="js/geolocation.js"></script> -->
 	 <title>Liste des Questions</title>
 </head>
@@ -31,9 +33,9 @@
     ?>
     
     <body>
+        <div class="container marketing">
         <p><a href="./index.php">Accueil back office</a> <a href="./liste_question.php">Rafraichir la page</a> </p>
-        
-          <div class="container marketing">
+          
           <form method="post" action="./liste_question.php">
             <hr>
             <div class="panel panel-default">
@@ -61,7 +63,7 @@
                         </div>
                         <br/>
                     
-                        <div class="col-sm-4 col-md-6">
+                        <div class="">
                             
                             <div id="div_question" class="form-group">
                                 <label for="question">Ecrivez la question :<br/></label>
@@ -107,7 +109,7 @@
             <hr>
             
           </form>
-          </div><!-- /.container marketing -->
+
         
 
         
@@ -117,7 +119,7 @@
         ?>
         <h1>Liste Questions</h1> 
         <hr /> 
-        <table border="1"> 
+        <table class="table table-hover"> 
             <th> Id </th>
             <th> Question </th>
             <th> Réponse 1 </th>
@@ -143,5 +145,7 @@
             ?>
         </table>
         <p><a href="./index.php">Accueil back office</a> </p>
+        </div><!-- /.container marketing -->
+        
     </body>
 </html>
